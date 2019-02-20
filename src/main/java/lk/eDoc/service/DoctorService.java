@@ -1,6 +1,8 @@
 package lk.eDoc.service;
 
+import lk.eDoc.dto.AppointmentDTO;
 import lk.eDoc.dto.DoctorDTO;
+import lk.eDoc.entity.Appointment;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.FileNotFoundException;
@@ -25,4 +27,6 @@ public interface DoctorService {
     boolean saveImage(MultipartFile proImage) throws IOException,URISyntaxException;
 
     byte[] getProfilePic(String imgName) throws URISyntaxException, IOException;
+
+    List<AppointmentDTO> doctorAppointment(String DID);
 }

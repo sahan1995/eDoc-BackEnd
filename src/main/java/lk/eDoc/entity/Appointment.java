@@ -5,12 +5,17 @@ import java.sql.Time;
 import java.util.Date;
 
 @Entity
-@NamedQuery(name = Appointment.Query,query =  "select a from Appointment a ORDER BY a.AppCode DESC" +"")
+@NamedQueries({
+        @NamedQuery(name = Appointment.Query,query =  "select a from Appointment a ORDER BY a.AppCode DESC" +"")
+})
+
 //@NamedQuery(name = Appointment.Query,query = "SELECT a FROM Appointment a WHERE a.DID= :DID AND a.date= :date AND a.time= :time AND a.isCheck= :isCheck " )
 public class Appointment {
 
     @Transient
     public static final String Query = "Appointment.getLastID";
+
+
 
     @Id
     private

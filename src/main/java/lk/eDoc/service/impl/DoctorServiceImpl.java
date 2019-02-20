@@ -1,12 +1,14 @@
 package lk.eDoc.service.impl;
 
-import lk.eDoc.dto.DoctorDTO;
-import lk.eDoc.dto.DoctorTelDTO;
-import lk.eDoc.dto.UserDTO;
+import lk.eDoc.dto.*;
+import lk.eDoc.entity.Appointment;
 import lk.eDoc.entity.Doctor;
 import lk.eDoc.entity.DoctorTel;
+import lk.eDoc.entity.Patient;
+import lk.eDoc.repository.AppointmentRepository;
 import lk.eDoc.repository.DoctorRepository;
 import lk.eDoc.repository.UserRepository;
+import lk.eDoc.service.AppointmentService;
 import lk.eDoc.service.DoctorService;
 import lk.eDoc.service.UserService;
 import org.apache.commons.io.IOUtils;
@@ -37,6 +39,10 @@ public class DoctorServiceImpl implements DoctorService {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    AppointmentRepository appointmentRepository;
+
     @Override
     public List<DoctorDTO> getAllDoctors() {
 
@@ -167,5 +173,33 @@ public class DoctorServiceImpl implements DoctorService {
         return bytes;
 
     }
+
+    @Override
+    public List<AppointmentDTO> doctorAppointment(String DID) {
+
+        List<Appointment> appointments = appointmentRepository.doctorAppointments(DID, 0);
+        List<AppointmentDTO> appointmentDTOS = new ArrayList<>();
+        appointments.forEach(appointment -> {
+
+            AppointmentDTO appointmentDTO = new AppointmentDTO(appointment.getAppCode(), appointment.getTime(), appointment.getDate(), appointment.getAppType(), appointment.isCheck());
+//            Doctor doctor = appointment.getDoctor();
+            Patient patient = appointment.getPatient();
+//            appointmentDTO.setDoctorDTO(new DoctorDTO(doctor.getDID(), doctor.getFname(), doctor.getMname(), doctor.getLname(), doctor.getGender(), doctor.getDob()
+//                    , doctor.getNIC(), doctor.getCountry(), doctor.getCity(), doctor.getLane(), doctor.getCode(), doctor.getLat(), doctor.getLng(), doctor.getProfilePic(), doctor.getUniversity(), doctor.getDegree()
+//                    , doctor.getSpecilizedIn(), doctor.getHostipal(), doctor.getGovDID(), doctor.getWebFee(), doctor.getPpFee(), doctor.getToHomeFee(),doctor.getAboutMe()));
+
+            appointmentDTO.setPatientDTO(new PatientDTO(patient.getPID(), patient.getFname(), patient.getMname(),
+                    patient.getLname(), patient.getGender(), patient.getDob(), patient.getNIC(),
+                    patient.getCountry(), patient.getCity(), patient.getLane(), patient.getCode(), patient.getLat(),
+                    patient.getLng(), patient.getProfilePic()));
+
+            appointmentDTOS.add(appointmentDTO);
+        });
+
+
+        return appointmentDTOS;
+
+    }
+
 
 }

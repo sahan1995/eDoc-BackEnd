@@ -1,5 +1,6 @@
 package lk.eDoc.controller;
 
+import lk.eDoc.dto.AppointmentDTO;
 import lk.eDoc.dto.DoctorDTO;
 import lk.eDoc.service.DoctorService;
 import lk.eDoc.service.UserService;
@@ -93,5 +94,9 @@ public class DoctorController {
         }
     }
 
+    @GetMapping(path = "/getDoctorAppointments")
+    public List<AppointmentDTO> getDoctorAppointments(@RequestParam("DID") String DID){
 
+        return docService.doctorAppointment(DID);
+    }
 }

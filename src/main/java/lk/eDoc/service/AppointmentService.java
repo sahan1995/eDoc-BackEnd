@@ -18,4 +18,9 @@ public interface AppointmentService {
     public String getLastID();
 
     AppointmentDTO findByID(String appCode);
+
+
+
+
+
 }

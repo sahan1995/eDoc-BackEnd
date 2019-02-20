@@ -87,9 +87,21 @@ public class AppointmentServiceImpl implements AppointmentService {
         Optional<Appointment> byId = appointmentRepo.findById(appCode);
         if(byId.isPresent()){
             Appointment appointment = byId.get();
-            return null;
-//            return  new AppointmentDTO(appointment.getAppCode(),appointment.getTime(),appointment.getDate(),appointment.getAppType(), appointment.isCheck());
+            Patient patient = appointment.getPatient();
+            Doctor doctor = appointment.getDoctor();
 
+            System.out.println(patient);
+            AppointmentDTO appointmentDTO = new AppointmentDTO(appointment.getAppCode(), appointment.getTime(), appointment.getDate(), appointment.getAppType(), appointment.isCheck());
+            appointmentDTO.setPatientDTO(new PatientDTO(patient.getPID(), patient.getFname(), patient.getMname(),
+                    patient.getLname(), patient.getGender(), patient.getDob(), patient.getNIC(),
+                    patient.getCountry(), patient.getCity(), patient.getLane(), patient.getCode(), patient.getLat(),
+                    patient.getLng(), patient.getProfilePic()));
+
+            appointmentDTO.setDoctorDTO(new DoctorDTO(doctor.getDID(), doctor.getFname(), doctor.getMname(), doctor.getLname(), doctor.getGender(), doctor.getDob()
+                    , doctor.getNIC(), doctor.getCountry(), doctor.getCity(), doctor.getLane(), doctor.getCode(), doctor.getLat(), doctor.getLng(), doctor.getProfilePic(), doctor.getUniversity(), doctor.getDegree()
+                    , doctor.getSpecilizedIn(), doctor.getHostipal(), doctor.getGovDID(), doctor.getWebFee(), doctor.getPpFee(), doctor.getToHomeFee(),doctor.getAboutMe()));
+
+            return appointmentDTO;
         }else{
             return null;
         }
