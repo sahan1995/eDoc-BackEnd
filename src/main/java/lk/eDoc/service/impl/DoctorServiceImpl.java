@@ -1,0 +1,171 @@
+package lk.eDoc.service.impl;
+
+import lk.eDoc.dto.DoctorDTO;
+import lk.eDoc.dto.DoctorTelDTO;
+import lk.eDoc.dto.UserDTO;
+import lk.eDoc.entity.Doctor;
+import lk.eDoc.entity.DoctorTel;
+import lk.eDoc.repository.DoctorRepository;
+import lk.eDoc.repository.UserRepository;
+import lk.eDoc.service.DoctorService;
+import lk.eDoc.service.UserService;
+import org.apache.commons.io.IOUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URLConnection;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+@Service
+@Transactional
+public class DoctorServiceImpl implements DoctorService {
+
+
+    @Autowired
+    DoctorRepository docRep;
+
+    @Autowired
+    UserService userService;
+    @Override
+    public List<DoctorDTO> getAllDoctors() {
+
+        List<DoctorDTO> doctorDTOS = new ArrayList<>();
+
+
+        List<Doctor> allDocs = docRep.findAll();
+
+        allDocs.forEach(doctor -> {
+
+            doctorDTOS.add(new DoctorDTO(doctor.getDID(), doctor.getFname(), doctor.getMname(), doctor.getLname(), doctor.getGender(), doctor.getDob()
+                    , doctor.getNIC(), doctor.getCountry(), doctor.getCity(), doctor.getLane(), doctor.getCode(), doctor.getLat(), doctor.getLng(), doctor.getProfilePic(), doctor.getUniversity(), doctor.getDegree()
+                    , doctor.getSpecilizedIn(), doctor.getHostipal(), doctor.getGovDID(), doctor.getWebFee(), doctor.getPpFee(), doctor.getToHomeFee(),doctor.getAboutMe()
+
+            ));
+
+        });
+
+
+        return doctorDTOS;
+    }
+
+    @Override
+    public DoctorDTO findById(String DID) {
+
+        Optional<Doctor> doctorById = docRep.findById(DID);
+        ArrayList<DoctorTelDTO> doctorTelDTOS = new ArrayList<>();
+        Doctor doctor = doctorById.get();
+        List<DoctorTel> doctorTels = doctor.getDoctorTels();
+
+
+
+        DoctorDTO doctorDTO = new DoctorDTO(doctor.getDID(), doctor.getFname(), doctor.getMname(), doctor.getLname(), doctor.getGender(), doctor.getDob()
+                , doctor.getNIC(), doctor.getCountry(), doctor.getCity(), doctor.getLane(), doctor.getCode(), doctor.getLat(), doctor.getLng(), doctor.getProfilePic(), doctor.getUniversity(), doctor.getDegree()
+                , doctor.getSpecilizedIn(), doctor.getHostipal(), doctor.getGovDID(), doctor.getWebFee(), doctor.getPpFee(), doctor.getToHomeFee(), doctor.getAboutMe());
+
+        doctorTels.forEach(doctorTel -> {
+            doctorTelDTOS.add(new DoctorTelDTO(doctorTel.getTel()));
+
+        });
+        System.out.println(doctorTelDTOS);
+        doctorDTO.setDoctorTelDTOS(doctorTelDTOS);
+        return doctorDTO;
+
+    }
+
+    @Override
+    public void saveDoctor(String DID, @RequestBody DoctorDTO doctor) {
+
+        if (!DID.equals(doctor.getDID())) {
+            throw new RuntimeException(" Not Same ");
+        }
+
+        UserDTO userDTO = new UserDTO(doctor.getUname(), doctor.getPassword(), doctor.getRole(), DID);
+        List<DoctorTel> doctorTels = new ArrayList<>();
+        Doctor doctorSave = new Doctor(doctor.getDID(), doctor.getFname(), doctor.getMname(), doctor.getLname(), doctor.getGender(), doctor.getDob()
+                , doctor.getIdenty(), doctor.getCountry(), doctor.getCity(), doctor.getLane(), doctor.getCode(), doctor.getLat(), doctor.getLng(), doctor.getProfilePic(), doctor.getUniversity(), doctor.getDegree()
+                , doctor.getSpecilizedIn(), doctor.getHostipal(), doctor.getGovDID(), doctor.getWebFee(), doctor.getPpFee(), doctor.getToHomeFee(),doctor.getAboutMe());
+
+
+        docRep.save(doctorSave);
+        userService.saveUser(doctor.getUname(),userDTO);
+        doctor.getDoctorTelDTOS().forEach(doctorTelDTO -> {
+            doctorTels.add(new DoctorTel(doctorSave, doctorTelDTO.getTel()));
+        });
+        doctorSave.setDoctorTels(doctorTels);
+
+    }
+
+    @Override
+    public void updateDoctor(String DID, @RequestBody DoctorDTO doctor) {
+        if (!DID.equals(doctor.getDID())) {
+            throw new RuntimeException(" ID Not Same");
+        }
+
+        List<DoctorTel> doctorTels = new ArrayList<>();
+        Doctor doctorSave = new Doctor(doctor.getDID(), doctor.getFname(), doctor.getMname(), doctor.getLname(), doctor.getGender(), doctor.getDob()
+                , doctor.getIdenty(), doctor.getCountry(), doctor.getCity(), doctor.getLane(), doctor.getCode(), doctor.getLat(), doctor.getLng(), doctor.getProfilePic(), doctor.getUniversity(), doctor.getDegree()
+                , doctor.getSpecilizedIn(), doctor.getHostipal(), doctor.getGovDID(), doctor.getWebFee(), doctor.getPpFee(), doctor.getToHomeFee(),doctor.getAboutMe());
+
+
+        docRep.save(doctorSave);
+
+        doctor.getDoctorTelDTOS().forEach(doctorTelDTO -> {
+            doctorTels.add(new DoctorTel(doctorSave, doctorTelDTO.getTel()));
+        });
+        doctorSave.setDoctorTels(doctorTels);
+    }
+
+    @Override
+    public void deleteDoctor(String DID) {
+
+        docRep.deleteById(DID);
+
+    }
+
+    @Override
+    public String getLastID() {
+        List<Doctor> lastID = docRep.getLastID(new PageRequest(0, 1));
+        if (lastID.isEmpty()) {
+            return null;
+        } else {
+            return lastID.get(0).getDID();
+        }
+    }
+
+    @Override
+    public boolean saveImage(MultipartFile proImage) throws IOException, URISyntaxException {
+
+        String projectPath = new File(this.getClass().getProtectionDomain().getCodeSource().getLocation().toURI()).getAbsolutePath();
+        File uploadDir = new File(projectPath + "/uploads");
+        uploadDir.mkdir();
+        proImage.transferTo(new File(uploadDir.getAbsolutePath() + "/" + proImage.getOriginalFilename()));
+        return true;
+    }
+
+    @Override
+    public byte[] getProfilePic(String imgName) throws URISyntaxException, IOException {
+
+        String projectPath = new File(this.getClass().getProtectionDomain().getCodeSource().getLocation().toURI()).getAbsolutePath();
+        File file = new File(projectPath + "/uploads/" + imgName);
+        FileInputStream fileInputStream = new FileInputStream(file);
+
+        String mimeType= URLConnection.guessContentTypeFromName(file.getName());
+        System.out.println(mimeType);
+
+        byte[] bytes = IOUtils.toByteArray(fileInputStream);
+        return bytes;
+
+    }
+
+}
