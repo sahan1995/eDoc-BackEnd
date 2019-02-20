@@ -8,6 +8,7 @@ import lk.eDoc.entity.Doctor;
 import lk.eDoc.entity.Patient;
 import lk.eDoc.repository.AppointmentRepository;
 import lk.eDoc.service.AppointmentService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -43,6 +44,7 @@ public class AppointmentServiceImpl implements AppointmentService {
         Appointment appointment = new Appointment(app.getAppCode(), app.getTime(), app.getDate(), app.getAppType(), app.isCheck());
 
         PatientDTO patientDTO = app.getPatientDTO();
+
         appointment.setPatient(new Patient(patientDTO.getPID(), patientDTO.getFname(), patientDTO.getMname(),
                 patientDTO.getLname(), patientDTO.getGender(), patientDTO.getDob(), patientDTO.getIdenty(),
                 patientDTO.getCountry(), patientDTO.getCity(), patientDTO.getLane(), patientDTO.getCode(), patientDTO.getLat(),
@@ -90,17 +92,24 @@ public class AppointmentServiceImpl implements AppointmentService {
             Patient patient = appointment.getPatient();
             Doctor doctor = appointment.getDoctor();
 
+            PatientDTO patientDTO = new PatientDTO();
+            DoctorDTO doctorDTO = new DoctorDTO();
+
+            BeanUtils.copyProperties(patient,patientDTO);
+            BeanUtils.copyProperties(doctor,doctorDTO);
             System.out.println(patient);
             AppointmentDTO appointmentDTO = new AppointmentDTO(appointment.getAppCode(), appointment.getTime(), appointment.getDate(), appointment.getAppType(), appointment.isCheck());
-            appointmentDTO.setPatientDTO(new PatientDTO(patient.getPID(), patient.getFname(), patient.getMname(),
-                    patient.getLname(), patient.getGender(), patient.getDob(), patient.getNIC(),
-                    patient.getCountry(), patient.getCity(), patient.getLane(), patient.getCode(), patient.getLat(),
-                    patient.getLng(), patient.getProfilePic()));
+//            appointmentDTO.setPatientDTO(new PatientDTO(patient.getPID(), patient.getFname(), patient.getMname(),
+//                    patient.getLname(), patient.getGender(), patient.getDob(), patient.getNIC(),
+//                    patient.getCountry(), patient.getCity(), patient.getLane(), patient.getCode(), patient.getLat(),
+//                    patient.getLng(), patient.getProfilePic()));
 
-            appointmentDTO.setDoctorDTO(new DoctorDTO(doctor.getDID(), doctor.getFname(), doctor.getMname(), doctor.getLname(), doctor.getGender(), doctor.getDob()
-                    , doctor.getNIC(), doctor.getCountry(), doctor.getCity(), doctor.getLane(), doctor.getCode(), doctor.getLat(), doctor.getLng(), doctor.getProfilePic(), doctor.getUniversity(), doctor.getDegree()
-                    , doctor.getSpecilizedIn(), doctor.getHostipal(), doctor.getGovDID(), doctor.getWebFee(), doctor.getPpFee(), doctor.getToHomeFee(),doctor.getAboutMe()));
+            appointmentDTO.setPatientDTO(patientDTO);
+//            appointmentDTO.setDoctorDTO(new DoctorDTO(doctor.getDID(), doctor.getFname(), doctor.getMname(), doctor.getLname(), doctor.getGender(), doctor.getDob()
+//                    , doctor.getNIC(), doctor.getCountry(), doctor.getCity(), doctor.getLane(), doctor.getCode(), doctor.getLat(), doctor.getLng(), doctor.getProfilePic(), doctor.getUniversity(), doctor.getDegree()
+//                    , doctor.getSpecilizedIn(), doctor.getHostipal(), doctor.getGovDID(), doctor.getWebFee(), doctor.getPpFee(), doctor.getToHomeFee(),doctor.getAboutMe()));
 
+            appointmentDTO.setDoctorDTO(doctorDTO);
             return appointmentDTO;
         }else{
             return null;
