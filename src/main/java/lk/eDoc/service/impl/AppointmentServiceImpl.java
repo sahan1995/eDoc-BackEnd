@@ -42,7 +42,7 @@ public class AppointmentServiceImpl implements AppointmentService {
         if(!appCpde.equals(app.getAppCode())){
             throw new RuntimeException("Codes are not Same");
         }
-        Appointment appointment = new Appointment(app.getAppCode(), app.getTime(), app.getDate(), app.getAppType(), app.isCheck());
+        Appointment appointment = new Appointment(app.getAppCode(), app.getTime(), app.getDate(), app.getAppType(), app.isCheck(),app.isCancle());
 
         PatientDTO patientDTO = app.getPatientDTO();
 
@@ -66,7 +66,7 @@ public class AppointmentServiceImpl implements AppointmentService {
     public boolean checkAppointmentAvalable(String DID, String date, String time) {
 
         System.out.println(DID+" "+date+" "+time);
-        String appointment = appointmentRepo.checkAppointmentAvalable(DID, date, time, 0);
+        String appointment = appointmentRepo.checkAppointmentAvalable(DID, date, time, 0,0);
         System.out.println(appointment);
         if(appointment!=null){
             System.out.println("Methana");
@@ -122,7 +122,7 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Override
     public List<AppointmentDTO> findByApptype(String appType, String DID) {
 
-        List<Appointment> byType = appointmentRepo.getByType(appType, DID);
+        List<Appointment> byType = appointmentRepo.getByType(appType, DID,0,0);
         List<AppointmentDTO> appointmentDTOS = new ArrayList<>();
         if(byType!=null){
 
@@ -131,13 +131,49 @@ public class AppointmentServiceImpl implements AppointmentService {
                 DoctorDTO doctorDTO = new DoctorDTO();
                 BeanUtils.copyProperties(appointment.getPatient(),patientDTO);
                 BeanUtils.copyProperties(appointment.getDoctor(),doctorDTO);
-                appointmentDTOS.add(new AppointmentDTO(appointment.getAppCode(),appointment.getTime(),appointment.getDate(),appointment.getAppType(),appointment.isCheck(),patientDTO,doctorDTO));
+                appointmentDTOS.add(new AppointmentDTO(appointment.getAppCode(),appointment.getTime(),appointment.getDate(),appointment.getAppType(),appointment.isCheck(),patientDTO,doctorDTO,appointment.isCancle()));
 
             });
             return appointmentDTOS;
         }
 
         return null;
+    }
+
+    @Override
+    public List<AppointmentDTO> findByDate(String date, String DID) {
+        List<Appointment> byDate = appointmentRepo.findByDate(date, DID, 0, 0);
+        List<AppointmentDTO> appointmentDTOS = new ArrayList<>();
+        if (byDate==null){
+            return  null;
+        }
+        byDate.forEach(appointment -> {
+            PatientDTO patientDTO = new PatientDTO();
+            DoctorDTO doctorDTO = new DoctorDTO();
+            BeanUtils.copyProperties(appointment.getPatient(),patientDTO);
+            BeanUtils.copyProperties(appointment.getDoctor(),doctorDTO);
+            appointmentDTOS.add(new AppointmentDTO(appointment.getAppCode(),appointment.getTime(),appointment.getDate(),appointment.getAppType(),appointment.isCheck(),patientDTO,doctorDTO,appointment.isCancle()));
+        });
+        return appointmentDTOS;
+    }
+
+    @Override
+    public List<AppointmentDTO> findByDateAndType(String date, String DID, String appType) {
+
+        List<Appointment> byDateAndType = appointmentRepo.findByDateAndType(date, DID, 0, 0, appType);
+        List<AppointmentDTO> appointmentDTOS = new ArrayList<>();
+        if(byDateAndType==null){
+            return null;
+        }
+        byDateAndType.forEach(appointment -> {
+            PatientDTO patientDTO = new PatientDTO();
+            DoctorDTO doctorDTO = new DoctorDTO();
+            BeanUtils.copyProperties(appointment.getPatient(),patientDTO);
+            BeanUtils.copyProperties(appointment.getDoctor(),doctorDTO);
+            appointmentDTOS.add(new AppointmentDTO(appointment.getAppCode(),appointment.getTime(),appointment.getDate(),appointment.getAppType(),appointment.isCheck(),patientDTO,doctorDTO,appointment.isCancle()));
+        });
+
+        return appointmentDTOS;
     }
 
 

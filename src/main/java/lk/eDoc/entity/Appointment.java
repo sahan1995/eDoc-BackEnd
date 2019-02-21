@@ -15,8 +15,6 @@ public class Appointment {
     @Transient
     public static final String Query = "Appointment.getLastID";
 
-
-
     @Id
     private
     String AppCode;
@@ -33,6 +31,25 @@ public class Appointment {
 
     private boolean isCheck;
 
+    private boolean isCancle;
+
+    public Appointment(String appCode, String time, String date, String appType, boolean isCheck, boolean isCancle) {
+        AppCode = appCode;
+        this.time = time;
+        this.date = date;
+        AppType = appType;
+        this.isCheck = isCheck;
+        this.isCancle = isCancle;
+    }
+
+    public boolean isCancle() {
+        return isCancle;
+    }
+
+    public void setCancle(boolean cancle) {
+        isCancle = cancle;
+    }
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "PID",referencedColumnName = "PID")
     private
@@ -45,6 +62,9 @@ public class Appointment {
 
     @OneToOne(mappedBy = "appointment",fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
     private MedicalReport medicalReport;
+
+
+
 
     public String getAppCode() {
         return AppCode;

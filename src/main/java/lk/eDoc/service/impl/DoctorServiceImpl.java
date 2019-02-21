@@ -177,7 +177,7 @@ public class DoctorServiceImpl implements DoctorService {
     @Override
     public List<AppointmentDTO> doctorAppointment(String DID) {
 
-        List<Appointment> appointments = appointmentRepository.doctorAppointments(DID, 0);
+        List<Appointment> appointments = appointmentRepository.doctorAppointments(DID, 0,0);
         List<AppointmentDTO> appointmentDTOS = new ArrayList<>();
         appointments.forEach(appointment -> {
 

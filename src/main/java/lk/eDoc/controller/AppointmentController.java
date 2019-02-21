@@ -16,7 +16,7 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-@RequestMapping(value = "api/v1/appointments",produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "api/v1/appointments", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AppointmentController {
 
     @Autowired
@@ -29,18 +29,18 @@ public class AppointmentController {
     PatientService patientService;
 
     @GetMapping(path = "/isBooked")
-    Boolean  isBooked(@RequestParam("DID") String DID, @RequestParam("date") String date, @RequestParam("time") String time){
-      return   appointmentSe.checkAppointmentAvalable(DID,date,time);
+    Boolean isBooked(@RequestParam("DID") String DID, @RequestParam("date") String date, @RequestParam("time") String time) {
+        return appointmentSe.checkAppointmentAvalable(DID, date, time);
 
     }
 
     @GetMapping(path = "/lastID")
-    String lastID(){
+    String lastID() {
         return appointmentSe.getLastID();
     }
 
     @PutMapping(value = "/{appCode}")
-    boolean saveAppointment(@PathVariable("appCode") String appCode, @RequestBody String JSON){
+    boolean saveAppointment(@PathVariable("appCode") String appCode, @RequestBody String JSON) {
 
 //        System.out.println(JSON);
 
@@ -53,24 +53,36 @@ public class AppointmentController {
         String did = jsonObject.get("DID").toString();
         String pid = jsonObject.get("PID").toString();
 
-        AppointmentDTO appointmentDTO = new AppointmentDTO(appCode1, time, date, appType, false,patientService.findByID(pid),doctorService.findById(did));
+        AppointmentDTO appointmentDTO = new AppointmentDTO(appCode1, time, date, appType, false, patientService.findByID(pid), doctorService.findById(did), false);
 
 
         System.out.println(appointmentDTO);
 
-        appointmentSe.addAppointment(appCode,appointmentDTO);
+        appointmentSe.addAppointment(appCode, appointmentDTO);
         return false;
     }
 
     @GetMapping(value = "/{appCode}")
-    AppointmentDTO findByCode(@PathVariable("appCode") String appCode){
-        return  appointmentSe.findByID(appCode);
+    AppointmentDTO findByCode(@PathVariable("appCode") String appCode) {
+        return appointmentSe.findByID(appCode);
     }
 
     @GetMapping(path = "/findByType")
-   List<AppointmentDTO> findByAppType( @RequestParam("appType")String appType, @RequestParam("DID") String DID){
+    List<AppointmentDTO> findByAppType(@RequestParam("appType") String appType, @RequestParam("DID") String DID) {
 
 
-       return appointmentSe.findByApptype(appType,DID);
+        return appointmentSe.findByApptype(appType, DID);
+    }
+
+    @GetMapping(path = "/findByDate")
+    List<AppointmentDTO> findByDate(@RequestParam("date") String date, @RequestParam("DID") String DID) {
+
+        return appointmentSe.findByDate(date, DID);
+
+    }
+
+    @GetMapping(path = "/findByDateAndType")
+    List<AppointmentDTO> findByDateAndType(@RequestParam("date") String date, @RequestParam("DID") String DID, @RequestParam("appType") String appType ){
+        return appointmentSe.findByDateAndType(date,DID,appType);
     }
 }

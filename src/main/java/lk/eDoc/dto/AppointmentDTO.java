@@ -27,6 +27,27 @@ public class AppointmentDTO {
     DoctorDTO doctorDTO;
 
 
+    private boolean isCancle;
+
+    public boolean isCancle() {
+        return isCancle;
+    }
+
+    public void setCancle(boolean cancle) {
+        isCancle = cancle;
+    }
+
+    public AppointmentDTO(String appCode, String time, String date, String appType, boolean isCheck, PatientDTO patientDTO, DoctorDTO doctorDTO, boolean isCancle) {
+        AppCode = appCode;
+        this.time = time;
+        this.date = date;
+        AppType = appType;
+        this.isCheck = isCheck;
+        this.patientDTO = patientDTO;
+        this.doctorDTO = doctorDTO;
+        this.isCancle = isCancle;
+    }
+
     public String getAppCode() {
         return AppCode;
     }

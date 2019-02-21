@@ -21,7 +21,7 @@ public interface AppointmentService {
 
     List<AppointmentDTO> findByApptype(String appType,String DID);
 
+    List<AppointmentDTO> findByDate(String date,String DID);
 
-
-
+    List<AppointmentDTO> findByDateAndType(String date,String DID,String appType);
 }
