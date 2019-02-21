@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -117,5 +118,27 @@ public class AppointmentServiceImpl implements AppointmentService {
             return null;
         }
     }
+
+    @Override
+    public List<AppointmentDTO> findByApptype(String appType, String DID) {
+
+        List<Appointment> byType = appointmentRepo.getByType(appType, DID);
+        List<AppointmentDTO> appointmentDTOS = new ArrayList<>();
+        if(byType!=null){
+
+            byType.forEach(appointment -> {
+                PatientDTO patientDTO = new PatientDTO();
+                DoctorDTO doctorDTO = new DoctorDTO();
+                BeanUtils.copyProperties(appointment.getPatient(),patientDTO);
+                BeanUtils.copyProperties(appointment.getDoctor(),doctorDTO);
+                appointmentDTOS.add(new AppointmentDTO(appointment.getAppCode(),appointment.getTime(),appointment.getDate(),appointment.getAppType(),appointment.isCheck(),patientDTO,doctorDTO));
+
+            });
+            return appointmentDTOS;
+        }
+
+        return null;
+    }
+
 
 }

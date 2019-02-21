@@ -6,6 +6,34 @@ public class LoginDetailDTO {
     private String lname;
     private String role;
 
+    public LoginDetailDTO(String ID, String fname, String lname, String role, Double lat, Double lng) {
+        this.ID = ID;
+        this.fname = fname;
+        this.lname = lname;
+        this.role = role;
+        this.lat = lat;
+        this.lng = lng;
+    }
+
+    private Double lat;
+    private Double lng;
+
+    public Double getLat() {
+        return lat;
+    }
+
+    public void setLat(Double lat) {
+        this.lat = lat;
+    }
+
+    public Double getLng() {
+        return lng;
+    }
+
+    public void setLng(Double lng) {
+        this.lng = lng;
+    }
+
     public String getID() {
         return ID;
     }

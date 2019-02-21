@@ -19,6 +19,7 @@ public interface AppointmentService {
 
     AppointmentDTO findByID(String appCode);
 
+    List<AppointmentDTO> findByApptype(String appType,String DID);
 
 
 

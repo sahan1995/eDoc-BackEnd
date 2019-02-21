@@ -66,4 +66,11 @@ public class AppointmentController {
     AppointmentDTO findByCode(@PathVariable("appCode") String appCode){
         return  appointmentSe.findByID(appCode);
     }
+
+    @GetMapping(path = "/findByType")
+   List<AppointmentDTO> findByAppType( @RequestParam("appType")String appType, @RequestParam("DID") String DID){
+
+
+       return appointmentSe.findByApptype(appType,DID);
+    }
 }

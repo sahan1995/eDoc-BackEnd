@@ -22,6 +22,7 @@ public interface AppointmentRepository extends JpaRepository<Appointment,String>
     @Query(value = "SELECT  * FROM  Appointment a WHERE a.DID=:DID AND a.isCheck=:isCheck",nativeQuery = true)
     List<Appointment> doctorAppointments(@Param("DID") String DID, @Param("isCheck") int isCheck);
 
-
+    @Query(value = "SELECT * FROM Appointment a WHERE a.AppType=:AppType AND a.DID =:DID",nativeQuery = true)
+    List<Appointment> getByType(@Param("AppType") String appType, @Param("DID") String DID);
 
 }
