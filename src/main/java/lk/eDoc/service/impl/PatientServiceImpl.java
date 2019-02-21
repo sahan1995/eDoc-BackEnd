@@ -127,15 +127,13 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public String getLastID() {
-        List<Patient> lastID = patientRepository.getLastID(new PageRequest(0, 1));
-        if(lastID.isEmpty()){
+
+        String lastID1 = patientRepository.getLastID();
+
+        if(lastID1.equals("")){
             return null;
-        }else {
-            System.out.println(lastID.get(0).getPID());
-//        Patient lastID = patientRepository.getLastID(new PageRequest(0,1));
-//        System.out.println(lastID);
-            return lastID.get(0).getPID();
         }
+        return lastID1;
     }
 
 

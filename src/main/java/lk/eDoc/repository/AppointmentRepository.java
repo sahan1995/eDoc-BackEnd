@@ -15,8 +15,9 @@ public interface AppointmentRepository extends JpaRepository<Appointment,String>
     @Query(value = "SELECT 1 FROM Appointment a WHERE a.DID= :DID AND a.date= :date AND a.time= :time AND a.isCheck= :isCheck",nativeQuery = true)
     String checkAppointmentAvalable(@Param("DID") String DID, @Param("date") String date, @Param("time") String time, @Param("isCheck") int isCheck);
 
-    @Query(name = Appointment.Query)
-    List<Appointment> getLastID(Pageable pageable);
+    @Query(value = "SELECT COUNT(AppCode) FROM Appointment", nativeQuery = true)
+    String getLastID();
+
 
     @Query(value = "SELECT  * FROM  Appointment a WHERE a.DID=:DID AND a.isCheck=:isCheck",nativeQuery = true)
     List<Appointment> doctorAppointments(@Param("DID") String DID, @Param("isCheck") int isCheck);

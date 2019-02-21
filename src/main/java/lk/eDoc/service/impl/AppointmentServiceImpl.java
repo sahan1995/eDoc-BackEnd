@@ -76,11 +76,13 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Override
     public String getLastID() {
-        List<Appointment> lastID = appointmentRepo.getLastID(new PageRequest(0, 1));
-        if(lastID.isEmpty()){
+
+
+        String lastID1 = appointmentRepo.getLastID();
+        if(lastID1.equals("")){
             return null;
         }
-        return lastID.get(0).getAppCode();
+        return lastID1;
     }
 
     @Override

@@ -141,12 +141,12 @@ public class DoctorServiceImpl implements DoctorService {
 
     @Override
     public String getLastID() {
-        List<Doctor> lastID = docRep.getLastID(new PageRequest(0, 1));
-        if (lastID.isEmpty()) {
+
+        String lastID1 = docRep.getLastID();
+        if(lastID1.equals("")){
             return null;
-        } else {
-            return lastID.get(0).getDID();
         }
+        return lastID1;
     }
 
     @Override
