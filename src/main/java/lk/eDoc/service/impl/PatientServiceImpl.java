@@ -9,6 +9,7 @@ import lk.eDoc.entity.User;
 import lk.eDoc.repository.PatientRepository;
 import lk.eDoc.service.PatientService;
 import lk.eDoc.service.UserService;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -134,6 +140,21 @@ public class PatientServiceImpl implements PatientService {
             return null;
         }
         return lastID1;
+    }
+
+    @Override
+    public byte[] getProfilePicture(String picName) throws IOException, URISyntaxException {
+
+        String projectPath = new File(this.getClass().getProtectionDomain().getCodeSource().getLocation().toURI()).getAbsolutePath();
+        File file = new File(projectPath + "/uploads/" + picName);
+        FileInputStream fileInputStream = new FileInputStream(file);
+
+        String mimeType= URLConnection.guessContentTypeFromName(file.getName());
+        System.out.println(mimeType);
+
+        byte[] bytes = IOUtils.toByteArray(fileInputStream);
+        return bytes;
+
     }
 
 

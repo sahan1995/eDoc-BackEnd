@@ -3,6 +3,9 @@ package lk.eDoc.service;
 import lk.eDoc.dto.PatientDTO;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.List;
 
 public interface PatientService  {
@@ -20,5 +23,7 @@ public interface PatientService  {
     boolean saveProfileImage(MultipartFile image) throws Exception;
 
     String getLastID();
+
+    byte [] getProfilePicture(String picName) throws IOException, URISyntaxException;
 
 }

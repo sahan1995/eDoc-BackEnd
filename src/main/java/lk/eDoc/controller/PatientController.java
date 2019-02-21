@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.List;
 @CrossOrigin(origins = {"http://localhost:4200"})
 @RestController
@@ -79,6 +80,11 @@ public class PatientController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    @GetMapping(path="/getPic",produces = {"image/jpeg","image/png"})
+    byte[] getProfilePic(@RequestParam("picName") String profilePicName) throws IOException, URISyntaxException {
+
+        return patientService.getProfilePicture(profilePicName);
     }
 
 }
