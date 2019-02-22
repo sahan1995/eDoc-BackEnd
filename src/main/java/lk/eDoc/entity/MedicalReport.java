@@ -8,8 +8,9 @@ import java.util.Date;
 public class MedicalReport implements Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private
-    String mediID;
+    int mediID;
 
     private
     String drug;
@@ -34,9 +35,17 @@ public class MedicalReport implements Serializable {
 
     private int days;
 
-    private boolean beforemeal;
+    private String meal;
 
-    private boolean aftermeal;
+    public String getMeal() {
+        return meal;
+    }
+
+    public void setMeal(String meal) {
+        this.meal = meal;
+    }
+
+
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "AppCode",referencedColumnName = "AppCode")
@@ -46,11 +55,11 @@ public class MedicalReport implements Serializable {
     @OneToOne(mappedBy = "medicalReport",fetch = FetchType.LAZY)
     private Order order;
 
-    public String getMediID() {
+    public int getMediID() {
         return mediID;
     }
 
-    public void setMediID(String mediID) {
+    public void setMediID(int mediID) {
         this.mediID = mediID;
     }
 
@@ -118,21 +127,6 @@ public class MedicalReport implements Serializable {
         this.days = days;
     }
 
-    public boolean isBeforemeal() {
-        return beforemeal;
-    }
-
-    public void setBeforemeal(boolean beforemeal) {
-        this.beforemeal = beforemeal;
-    }
-
-    public boolean isAftermeal() {
-        return aftermeal;
-    }
-
-    public void setAftermeal(boolean aftermeal) {
-        this.aftermeal = aftermeal;
-    }
 
     public Appointment getAppointment() {
         return appointment;
@@ -142,8 +136,8 @@ public class MedicalReport implements Serializable {
         this.appointment = appointment;
     }
 
-    public MedicalReport(String mediID, String drug, int morning, int noon, int eve, int night, int qty, Date date, int days, boolean beforemeal, boolean aftermeal) {
-        this.mediID = mediID;
+
+    public MedicalReport(String drug, int morning, int noon, int eve, int night, int qty, Date date, int days, String meal) {
         this.drug = drug;
         this.morning = morning;
         this.noon = noon;
@@ -152,8 +146,9 @@ public class MedicalReport implements Serializable {
         this.qty = qty;
         this.date = date;
         this.days = days;
-        this.beforemeal = beforemeal;
-        this.aftermeal = aftermeal;
+        this.meal = meal;
+
+
     }
 
     public MedicalReport() {
@@ -171,8 +166,9 @@ public class MedicalReport implements Serializable {
                 ", qty=" + qty +
                 ", date=" + date +
                 ", days=" + days +
-                ", beforemeal=" + beforemeal +
-                ", aftermeal=" + aftermeal +
+                ", meal='" + meal + '\'' +
+                ", appointment=" + appointment +
+                ", order=" + order +
                 '}';
     }
 

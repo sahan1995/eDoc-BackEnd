@@ -6,7 +6,7 @@ public class MedicalReportDTO {
 
 
     private
-    String mediID;
+    int mediID;
 
     private
     String drug;
@@ -30,19 +30,25 @@ public class MedicalReportDTO {
 
     private int days;
 
-    private boolean beforemeal;
+    private String meal;
 
-    private boolean aftermeal;
+    public String getMeal() {
+        return meal;
+    }
+
+    public void setMeal(String meal) {
+        this.meal = meal;
+    }
 
     private
     AppointmentDTO appointmentDTO;
 
 
-    public String getMediID() {
+    public int getMediID() {
         return mediID;
     }
 
-    public void setMediID(String mediID) {
+    public void setMediID(int mediID) {
         this.mediID = mediID;
     }
 
@@ -110,21 +116,6 @@ public class MedicalReportDTO {
         this.days = days;
     }
 
-    public boolean isBeforemeal() {
-        return beforemeal;
-    }
-
-    public void setBeforemeal(boolean beforemeal) {
-        this.beforemeal = beforemeal;
-    }
-
-    public boolean isAftermeal() {
-        return aftermeal;
-    }
-
-    public void setAftermeal(boolean aftermeal) {
-        this.aftermeal = aftermeal;
-    }
 
     public AppointmentDTO getAppointmentDTO() {
         return appointmentDTO;
@@ -134,8 +125,11 @@ public class MedicalReportDTO {
         this.appointmentDTO = appointmentDTO;
     }
 
-    public MedicalReportDTO(String mediID, String drug, int morning, int noon, int eve, int night, int qty, Date date, int days, boolean beforemeal, boolean aftermeal) {
-        this.mediID = mediID;
+
+    public MedicalReportDTO() {
+    }
+
+    public MedicalReportDTO(String drug, int morning, int noon, int eve, int night, int qty, Date date, int days, String meal) {
         this.drug = drug;
         this.morning = morning;
         this.noon = noon;
@@ -144,17 +138,14 @@ public class MedicalReportDTO {
         this.qty = qty;
         this.date = date;
         this.days = days;
-        this.beforemeal = beforemeal;
-        this.aftermeal = aftermeal;
-    }
-
-    public MedicalReportDTO() {
+        this.meal = meal;
     }
 
     @Override
     public String toString() {
         return "MedicalReportDTO{" +
                 "mediID='" + mediID + '\'' +
+
                 ", drug='" + drug + '\'' +
                 ", morning=" + morning +
                 ", noon=" + noon +
@@ -163,8 +154,8 @@ public class MedicalReportDTO {
                 ", qty=" + qty +
                 ", date=" + date +
                 ", days=" + days +
-                ", beforemeal=" + beforemeal +
-                ", aftermeal=" + aftermeal +
+                ", meal='" + meal + '\'' +
+                ", appointmentDTO=" + appointmentDTO +
                 '}';
     }
 }

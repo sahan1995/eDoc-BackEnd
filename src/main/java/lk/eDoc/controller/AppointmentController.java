@@ -85,4 +85,6 @@ public class AppointmentController {
     List<AppointmentDTO> findByDateAndType(@RequestParam("date") String date, @RequestParam("DID") String DID, @RequestParam("appType") String appType ){
         return appointmentSe.findByDateAndType(date,DID,appType);
     }
+
+
 }
