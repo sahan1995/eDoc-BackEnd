@@ -73,6 +73,44 @@ public class Doctor  {
     @Lob
     private String aboutMe;
 
+    @Lob
+    private String videoCallID;
+
+    public String getVideoCallID() {
+        return videoCallID;
+    }
+
+    public void setVideoCallID(String videoCallID) {
+        this.videoCallID = videoCallID;
+    }
+
+//    public Doctor(String DID, String fname, String mname, String lname, String gender, Date dob, String NIC, String country, String city, String lane, String code, Double lat, Double lng, String profilePic, String university, String degree, String specilizedIn, String hostipal, String govDID, BigDecimal webFee, BigDecimal ppFee, BigDecimal toHomeFee, String aboutMe, String videoCallID) {
+//        this.DID = DID;
+//        this.fname = fname;
+//        this.mname = mname;
+//        this.lname = lname;
+//        this.gender = gender;
+//        this.dob = dob;
+//        this.NIC = NIC;
+//        this.country = country;
+//        this.city = city;
+//        this.lane = lane;
+//        this.code = code;
+//        this.lat = lat;
+//        this.lng = lng;
+//        this.profilePic = profilePic;
+//        this.university = university;
+//        this.degree = degree;
+//        this.specilizedIn = specilizedIn;
+//        this.hostipal = hostipal;
+//        this.govDID = govDID;
+//        this.webFee = webFee;
+//        this.ppFee = ppFee;
+//        this.toHomeFee = toHomeFee;
+//        this.aboutMe = aboutMe;
+//        this.videoCallID = videoCallID;
+//    }
+
     public String getAboutMe() {
         return aboutMe;
     }

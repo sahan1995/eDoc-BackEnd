@@ -74,7 +74,7 @@ public class AppointmentController {
         return appointmentSe.findByApptype(appType, DID);
     }
 
-    @GetMapping(path = "/findByDate")
+    @PostMapping(path = "/findByDate")
     List<AppointmentDTO> findByDate(@RequestParam("date") String date, @RequestParam("DID") String DID) {
 
         return appointmentSe.findByDate(date, DID);

@@ -60,6 +60,16 @@ public class DoctorDTO {
 
     private String aboutMe;
 
+    private String videoCallID;
+
+    public String getVideoCallID() {
+        return videoCallID;
+    }
+
+    public void setVideoCallID(String videoCallID) {
+        this.videoCallID = videoCallID;
+    }
+
     public String getAboutMe() {
         return aboutMe;
     }

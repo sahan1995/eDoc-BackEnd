@@ -3,6 +3,7 @@ package lk.eDoc.service;
 import lk.eDoc.dto.AppointmentDTO;
 import lk.eDoc.dto.DoctorDTO;
 import lk.eDoc.entity.Appointment;
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.FileNotFoundException;
@@ -29,4 +30,9 @@ public interface DoctorService {
     byte[] getProfilePic(String imgName) throws URISyntaxException, IOException;
 
     List<AppointmentDTO> doctorAppointment(String DID);
+
+    void updateVideoKey(String DID, String Key);
+
+
+    String getVideoKey(String DID);
 }

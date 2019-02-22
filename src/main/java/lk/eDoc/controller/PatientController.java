@@ -1,18 +1,21 @@
 package lk.eDoc.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lk.eDoc.dto.AppointmentDTO;
 import lk.eDoc.dto.PatientDTO;
 import lk.eDoc.service.PatientService;
 import lk.eDoc.service.UserService;
+import org.omg.PortableServer.POA;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.ws.rs.GET;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.List;
-@CrossOrigin(origins = {"http://localhost:4200"})
+@CrossOrigin
 @RestController
 @RequestMapping(value = "api/v1/patients", produces = {MediaType.APPLICATION_JSON_VALUE})
 public class PatientController {
@@ -87,4 +90,26 @@ public class PatientController {
         return patientService.getProfilePicture(profilePicName);
     }
 
+    @PostMapping(path = "/updateVideoKey")
+    public void updateVideoKey(@RequestParam("PID") String PID,@RequestParam("Key") String Key){
+        patientService.updateVideoKey(PID, Key);
+    }
+
+
+    @GetMapping(path = "/getVideoKey")
+    public String getVideoKey(@RequestParam("PID") String PID){
+
+        return patientService.getVideoKey(PID);
+    }
+
+    @GetMapping(path = "/patientAppointments")
+    List<AppointmentDTO> getPatientAppointments(@RequestParam("PID") String PID){
+
+        return  patientService.patientAppointments(PID);
+    }
+
+    @GetMapping(path = "/getAppointmentByType")
+    List<AppointmentDTO> getAppointmentByType(@RequestParam("PID")String PID,@RequestParam("appType")String type){
+        return patientService.getAppointmentbyType(PID,type);
+    }
 }

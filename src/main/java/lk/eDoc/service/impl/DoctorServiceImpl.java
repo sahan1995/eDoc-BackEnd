@@ -201,5 +201,15 @@ public class DoctorServiceImpl implements DoctorService {
 
     }
 
+    @Override
+    public void updateVideoKey(String DID, String Key) {
+        docRep.updateVideoKey(DID,Key);
+    }
+
+    @Override
+    public String getVideoKey(String DID) {
+        return docRep.getVideoKey(DID);
+    }
+
 
 }

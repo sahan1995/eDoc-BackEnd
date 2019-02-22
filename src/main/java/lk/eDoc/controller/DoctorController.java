@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.DataOutput;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -98,5 +99,20 @@ public class DoctorController {
     public List<AppointmentDTO> getDoctorAppointments(@RequestParam("DID") String DID){
 
         return docService.doctorAppointment(DID);
+    }
+
+
+    @PostMapping(path = "/updateVideoKey")
+    public void updateVideoKey(@RequestParam("DID") String DID,@RequestParam("Key") String Key){
+        System.out.println(DID);
+        System.out.println(Key);
+        docService.updateVideoKey(DID, Key);
+    }
+
+
+    @GetMapping(path = "/getVideoKey")
+    public String getVideoKey(@RequestParam("DID") String DID){
+
+        return docService.getVideoKey(DID);
     }
 }

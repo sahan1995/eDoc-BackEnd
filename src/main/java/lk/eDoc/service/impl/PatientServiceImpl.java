@@ -1,17 +1,20 @@
 package lk.eDoc.service.impl;
 
-import lk.eDoc.dto.PatientDTO;
-import lk.eDoc.dto.PatientTelDTO;
-import lk.eDoc.dto.UserDTO;
+import lk.eDoc.dto.*;
+import lk.eDoc.entity.Appointment;
 import lk.eDoc.entity.Patient;
 import lk.eDoc.entity.PatientTel;
 import lk.eDoc.entity.User;
+import lk.eDoc.repository.AppointmentRepository;
 import lk.eDoc.repository.PatientRepository;
+import lk.eDoc.service.AppointmentService;
 import lk.eDoc.service.PatientService;
 import lk.eDoc.service.UserService;
 import org.apache.commons.io.IOUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,6 +40,8 @@ public class PatientServiceImpl implements PatientService {
 
     @Autowired
     UserService userService;
+    @Autowired
+    AppointmentRepository appointmentRepository;
     @Override
     public List<PatientDTO> getAllPatient() {
 
@@ -155,6 +160,57 @@ public class PatientServiceImpl implements PatientService {
         byte[] bytes = IOUtils.toByteArray(fileInputStream);
         return bytes;
 
+    }
+
+    @Override
+    public void updateVideoKey(String PID, String Key) {
+        patientRepository.updateVideoKey(PID, Key);
+    }
+
+    @Override
+    public String getVideoKey(String PID) {
+        return patientRepository.getVideoKey(PID);
+    }
+
+    @Override
+    public List<AppointmentDTO> patientAppointments(String PID) {
+
+
+
+        List<Appointment> appointments = appointmentRepository.patientAppointments(PID, 0, 0);
+        if(appointments==null){
+            return null;
+        }
+        List<AppointmentDTO> appointmentDTOS = new ArrayList<>();
+        appointments.forEach(appointment -> {
+            DoctorDTO doctorDTO = new DoctorDTO();
+            AppointmentDTO appointmentDTO = new AppointmentDTO(appointment.getAppCode(), appointment.getTime(), appointment.getDate(), appointment.getAppType(), appointment.isCheck());
+            BeanUtils.copyProperties(appointment.getDoctor(),doctorDTO);
+            appointmentDTO.setDoctorDTO(doctorDTO);
+            appointmentDTOS.add(appointmentDTO);
+
+        });
+
+        return appointmentDTOS;
+    }
+
+    @Override
+    public List<AppointmentDTO> getAppointmentbyType(String PID, String appType) {
+
+        List<Appointment> byTypePatient = appointmentRepository.getByTypePatient(appType, PID, 0, 0);
+        if(byTypePatient==null){
+            return null;
+        }
+        List<AppointmentDTO> appointmentDTOS = new ArrayList<>();
+
+        byTypePatient.forEach(appointment -> {
+            DoctorDTO doctorDTO = new DoctorDTO();
+            AppointmentDTO appointmentDTO = new AppointmentDTO(appointment.getAppCode(), appointment.getTime(), appointment.getDate(), appointment.getAppType(), appointment.isCheck());
+            BeanUtils.copyProperties(appointment.getDoctor(),doctorDTO);
+            appointmentDTO.setDoctorDTO(doctorDTO);
+            appointmentDTOS.add(appointmentDTO);
+        });
+        return appointmentDTOS;
     }
 
 

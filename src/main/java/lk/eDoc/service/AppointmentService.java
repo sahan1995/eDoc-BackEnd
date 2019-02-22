@@ -1,6 +1,8 @@
 package lk.eDoc.service;
 
 import lk.eDoc.dto.AppointmentDTO;
+import lk.eDoc.entity.Appointment;
+import org.springframework.data.repository.query.Param;
 
 import java.sql.Time;
 import java.util.Date;
@@ -24,4 +26,6 @@ public interface AppointmentService {
     List<AppointmentDTO> findByDate(String date,String DID);
 
     List<AppointmentDTO> findByDateAndType(String date,String DID,String appType);
+
+
 }

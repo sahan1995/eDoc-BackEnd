@@ -1,5 +1,6 @@
 package lk.eDoc.service;
 
+import lk.eDoc.dto.AppointmentDTO;
 import lk.eDoc.dto.PatientDTO;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -26,4 +27,11 @@ public interface PatientService  {
 
     byte [] getProfilePicture(String picName) throws IOException, URISyntaxException;
 
+    void updateVideoKey(String PID, String Key);
+
+    String getVideoKey(String PID);
+
+    List<AppointmentDTO> patientAppointments(String PID);
+
+    List<AppointmentDTO> getAppointmentbyType(String PID,String appType);
 }

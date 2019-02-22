@@ -32,4 +32,18 @@ public interface AppointmentRepository extends JpaRepository<Appointment,String>
     @Query(value = "SELECT * FROM Appointment a WHERE a.date =:date AND a.DID =:DID AND a.isCheck =:isCheck AND a.isCancle =:isCancle AND a.AppType = :AppType", nativeQuery = true)
     List<Appointment> findByDateAndType(@Param("date") String date,@Param("DID") String DID, @Param("isCheck") int isCheck, @Param("isCancle") int isCancle,@Param("AppType") String AppType);
 
+
+    @Query(value = "SELECT  * FROM  Appointment a WHERE a.PID=:PID AND a.isCheck=:isCheck AND a.isCancle=:isCancle ",nativeQuery = true)
+    List<Appointment> patientAppointments(@Param("PID") String PID, @Param("isCheck") int isCheck,@Param("isCancle") int isCancle);
+
+    @Query(value = "SELECT * FROM Appointment a WHERE a.AppType=:AppType AND a.PID =:PID AND a.isCancle=:isCancle AND a.isCheck=:isCheck",nativeQuery = true)
+    List<Appointment> getByTypePatient(@Param("AppType") String appType, @Param("PID") String PID,@Param("isCancle") int isCancle,@Param("isCheck") int isCheck);
+
+    @Query(value = "SELECT * FROM Appointment a WHERE a.date =:date AND a.PID =:PID AND a.isCheck =:isCheck AND a.isCancle =:isCancle ",nativeQuery = true)
+    List<Appointment> findByDatePatient(@Param("date") String date,@Param("PID") String PID, @Param("isCheck") int isCheck, @Param("isCancle") int isCancle);
+
+    @Query(value = "SELECT * FROM Appointment a WHERE a.date =:date AND a.PID =:PID AND a.isCheck =:isCheck AND a.isCancle =:isCancle AND a.AppType = :AppType", nativeQuery = true)
+    List<Appointment> findByDateAndTypePatient(@Param("date") String date,@Param("PID") String PID, @Param("isCheck") int isCheck, @Param("isCancle") int isCancle,@Param("AppType") String AppType);
+
+
 }
