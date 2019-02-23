@@ -27,5 +27,5 @@ public interface AppointmentService {
 
     List<AppointmentDTO> findByDateAndType(String date,String DID,String appType);
 
-
+    boolean finishAppointment(String appCode);
 }

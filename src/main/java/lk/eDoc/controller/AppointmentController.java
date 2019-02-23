@@ -86,5 +86,12 @@ public class AppointmentController {
         return appointmentSe.findByDateAndType(date,DID,appType);
     }
 
+    @PostMapping(path = "/finishAppointment")
+    boolean finishAppointment(@RequestParam("appCode") String appCode){
+
+        return appointmentSe.finishAppointment(appCode);
+    }
+
+
 
 }

@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
-@Entity
+
 public class MedicalReport implements Serializable {
 
     @Id
@@ -16,22 +16,22 @@ public class MedicalReport implements Serializable {
     String drug;
 
     @Column(nullable = false)
-    private int morning;
+    private Boolean morning;
 
     @Column(nullable = false)
-    private int noon;
+    private Boolean noon;
 
     @Column(nullable = false)
-    private int eve;
+    private Boolean eve;
 
     @Column(nullable = false)
-    private int night;
+    private Boolean night;
 
     private int qty;
 
-    @Temporal(TemporalType.DATE)
+
     private
-    Date date;
+    String date;
 
     private int days;
 
@@ -71,35 +71,35 @@ public class MedicalReport implements Serializable {
         this.drug = drug;
     }
 
-    public int getMorning() {
+    public Boolean getMorning() {
         return morning;
     }
 
-    public void setMorning(int morning) {
+    public void setMorning(Boolean morning) {
         this.morning = morning;
     }
 
-    public int getNoon() {
+    public Boolean getNoon() {
         return noon;
     }
 
-    public void setNoon(int noon) {
+    public void setNoon(Boolean noon) {
         this.noon = noon;
     }
 
-    public int getEve() {
+    public Boolean getEve() {
         return eve;
     }
 
-    public void setEve(int eve) {
+    public void setEve(Boolean eve) {
         this.eve = eve;
     }
 
-    public int getNight() {
+    public Boolean getNight() {
         return night;
     }
 
-    public void setNight(int night) {
+    public void setNight(Boolean night) {
         this.night = night;
     }
 
@@ -111,11 +111,11 @@ public class MedicalReport implements Serializable {
         this.qty = qty;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
@@ -137,7 +137,7 @@ public class MedicalReport implements Serializable {
     }
 
 
-    public MedicalReport(String drug, int morning, int noon, int eve, int night, int qty, Date date, int days, String meal) {
+    public MedicalReport(String drug, Boolean morning, Boolean noon, Boolean eve, Boolean night, int qty, String date, int days, String meal) {
         this.drug = drug;
         this.morning = morning;
         this.noon = noon;

@@ -25,11 +25,6 @@ public class Order {
     private boolean placed;
 
 
-    @OneToOne
-    @JoinColumn(name = "mediID",referencedColumnName = "mediID")
-
-    private
-    MedicalReport medicalReport;
 
     @ManyToOne
     @JoinColumn(name = "phyCode",referencedColumnName = "phyCode")
@@ -41,6 +36,18 @@ public class Order {
     private
     List<OrderDetail> orderDetails = new ArrayList<>();
 
+
+    public Prescription getPrescription() {
+        return prescription;
+    }
+
+    public void setPrescription(Prescription prescription) {
+        this.prescription = prescription;
+    }
+
+    @OneToOne
+    @JoinColumn(name = "prescriptionID",referencedColumnName = "prescriptionID")
+    private Prescription prescription;
 
     public String getOrderID() {
         return orderID;
@@ -94,13 +101,6 @@ public class Order {
                 '}';
     }
 
-    public MedicalReport getMedicalReport() {
-        return medicalReport;
-    }
-
-    public void setMedicalReport(MedicalReport medicalReport) {
-        this.medicalReport = medicalReport;
-    }
 
     public Pharmacy getPharmacy() {
         return pharmacy;

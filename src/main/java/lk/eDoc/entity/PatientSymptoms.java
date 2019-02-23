@@ -11,7 +11,7 @@ public class PatientSymptoms {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE,generator = "G1")
-    @TableGenerator(name = "G1",table = "AutoIncermant",allocationSize = 1,valueColumnName = "patientSymptomsID")
+    @TableGenerator(name = "G1",table = "AutoIncermant",allocationSize = 1,valueColumnName = "nextID")
     private
     int ID;
 

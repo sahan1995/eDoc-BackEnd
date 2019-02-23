@@ -29,9 +29,6 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Autowired
     AppointmentRepository appointmentRepo;
 
-//    @Autowired
-//    EntityManager entityManager;
-
     @Override
     public List<AppointmentDTO> getAllAppointment() {
         return null;
@@ -176,7 +173,11 @@ public class AppointmentServiceImpl implements AppointmentService {
         return appointmentDTOS;
     }
 
-
+    @Override
+    public boolean finishAppointment(String appCode) {
+         appointmentRepo.finishAppointment(1,appCode);
+         return true;
+    }
 
 
 }

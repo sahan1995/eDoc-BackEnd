@@ -4,6 +4,7 @@ import lk.eDoc.entity.Appointment;
 import lk.eDoc.entity.Doctor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -45,5 +46,9 @@ public interface AppointmentRepository extends JpaRepository<Appointment,String>
     @Query(value = "SELECT * FROM Appointment a WHERE a.date =:date AND a.PID =:PID AND a.isCheck =:isCheck AND a.isCancle =:isCancle AND a.AppType = :AppType", nativeQuery = true)
     List<Appointment> findByDateAndTypePatient(@Param("date") String date,@Param("PID") String PID, @Param("isCheck") int isCheck, @Param("isCancle") int isCancle,@Param("AppType") String AppType);
 
+//    @Query(value = "UPDATE Appointment a SET a.isCheck=:isCheck WHERE a.AppCode=:appCode",nativeQuery = true)
+    @Modifying
+    @Query(value = "update  Appointment set isCheck=:isCheck where AppCode=:AppCode",nativeQuery = true)
+    void finishAppointment(@Param("isCheck") int isCheck,@Param("AppCode") String appCode);
 
 }

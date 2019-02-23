@@ -1,14 +1,13 @@
 package lk.eDoc.dto;
 
-import java.util.Date;
+public class DrugDTO {
 
-public class MedicalReportDTO {
+    private int drugID;
 
+    private String meal;
 
     private
-    int mediID;
-
-    private String drug;
+    String drug;
 
 
     private Boolean morning;
@@ -19,17 +18,24 @@ public class MedicalReportDTO {
 
     private Boolean eve;
 
+
     private Boolean night;
 
     private int qty;
 
-
-    private
-    String date;
-
     private int days;
 
-    private String meal;
+
+    private
+    PrescriptionDTO prescriptionDTO;
+
+    public int getDrugID() {
+        return drugID;
+    }
+
+    public void setDrugID(int drugID) {
+        this.drugID = drugID;
+    }
 
     public String getMeal() {
         return meal;
@@ -37,18 +43,6 @@ public class MedicalReportDTO {
 
     public void setMeal(String meal) {
         this.meal = meal;
-    }
-
-    private
-    AppointmentDTO appointmentDTO;
-
-
-    public int getMediID() {
-        return mediID;
-    }
-
-    public void setMediID(int mediID) {
-        this.mediID = mediID;
     }
 
     public String getDrug() {
@@ -99,14 +93,6 @@ public class MedicalReportDTO {
         this.qty = qty;
     }
 
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
     public int getDays() {
         return days;
     }
@@ -115,46 +101,42 @@ public class MedicalReportDTO {
         this.days = days;
     }
 
-
-    public AppointmentDTO getAppointmentDTO() {
-        return appointmentDTO;
+    public PrescriptionDTO getPrescriptionDTO() {
+        return prescriptionDTO;
     }
 
-    public void setAppointmentDTO(AppointmentDTO appointmentDTO) {
-        this.appointmentDTO = appointmentDTO;
+    public void setPrescriptionDTO(PrescriptionDTO prescriptionDTO) {
+        this.prescriptionDTO = prescriptionDTO;
     }
 
-
-    public MedicalReportDTO() {
-    }
-
-    public MedicalReportDTO(String drug, Boolean morning, Boolean noon, Boolean eve, Boolean night, int qty, String date, int days, String meal) {
+    public DrugDTO(int drugID, String meal, String drug, Boolean morning, Boolean noon, Boolean eve, Boolean night, int qty, int days) {
+        this.drugID = drugID;
+        this.meal = meal;
         this.drug = drug;
         this.morning = morning;
         this.noon = noon;
         this.eve = eve;
         this.night = night;
         this.qty = qty;
-        this.date = date;
         this.days = days;
-        this.meal = meal;
+    }
+
+    public DrugDTO() {
     }
 
     @Override
     public String toString() {
-        return "MedicalReportDTO{" +
-                "mediID='" + mediID + '\'' +
-
+        return "DrugDTO{" +
+                "drugID=" + drugID +
+                ", meal='" + meal + '\'' +
                 ", drug='" + drug + '\'' +
                 ", morning=" + morning +
                 ", noon=" + noon +
                 ", eve=" + eve +
                 ", night=" + night +
                 ", qty=" + qty +
-                ", date=" + date +
                 ", days=" + days +
-                ", meal='" + meal + '\'' +
-                ", appointmentDTO=" + appointmentDTO +
+                ", prescriptionDTO=" + prescriptionDTO +
                 '}';
     }
 }

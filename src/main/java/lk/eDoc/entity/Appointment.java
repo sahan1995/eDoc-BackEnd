@@ -60,11 +60,17 @@ public class Appointment {
     private
     Doctor doctor;
 
+
     @OneToOne(mappedBy = "appointment",fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
-    private MedicalReport medicalReport;
+    private Prescription prescription;
 
+    public Prescription getPrescription() {
+        return prescription;
+    }
 
-
+    public void setPrescription(Prescription prescription) {
+        this.prescription = prescription;
+    }
 
     public String getAppCode() {
         return AppCode;
@@ -144,11 +150,5 @@ public class Appointment {
                 '}';
     }
 
-    public MedicalReport getMedicalReport() {
-        return medicalReport;
-    }
 
-    public void setMedicalReport(MedicalReport medicalReport) {
-        this.medicalReport = medicalReport;
-    }
 }
