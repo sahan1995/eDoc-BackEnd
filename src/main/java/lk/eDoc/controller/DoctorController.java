@@ -115,4 +115,9 @@ public class DoctorController {
 
         return docService.getVideoKey(DID);
     }
+
+    @GetMapping(path = "/getDoctorbySpecial")
+    List<DoctorDTO> getDoctorbySpecial(@RequestParam("special") String special){
+        return docService.getDoctorsBySpecilizedIn(special);
+    }
 }

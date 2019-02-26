@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.print.Doc;
 import java.util.List;
 
 public interface DoctorRepository extends JpaRepository<Doctor,String> {
@@ -22,5 +23,10 @@ public interface DoctorRepository extends JpaRepository<Doctor,String> {
 
     @Query(value = "SELECT videoCallID FROM Doctor d WHERE d.DID=:DID",nativeQuery = true)
     String getVideoKey(@Param("DID") String DID);
+
+    @Query(value = "SELECT * FROM Doctor d WHERE d.specilizedIn=:specilizedIn",nativeQuery = true)
+    List<Doctor> getDoctorsBySpecilizedIn(@Param("specilizedIn") String specilizedIn);
+
+
 
 }

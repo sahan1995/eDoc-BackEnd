@@ -33,6 +33,6 @@ public interface DoctorService {
 
     void updateVideoKey(String DID, String Key);
 
-
     String getVideoKey(String DID);
+    List<DoctorDTO> getDoctorsBySpecilizedIn(String sepecial);
 }

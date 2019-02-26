@@ -12,6 +12,7 @@ import lk.eDoc.service.AppointmentService;
 import lk.eDoc.service.DoctorService;
 import lk.eDoc.service.UserService;
 import org.apache.commons.io.IOUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -209,6 +210,21 @@ public class DoctorServiceImpl implements DoctorService {
     @Override
     public String getVideoKey(String DID) {
         return docRep.getVideoKey(DID);
+    }
+
+    @Override
+    public List<DoctorDTO> getDoctorsBySpecilizedIn(String sepecial) {
+        List<DoctorDTO> doctorDTOS = new ArrayList<>();
+        List<Doctor> doctors = docRep.getDoctorsBySpecilizedIn(sepecial);
+
+
+        doctors.forEach(doctor -> {
+            DoctorDTO doctorDTO = new DoctorDTO();
+            BeanUtils.copyProperties(doctor,doctorDTO);
+            doctorDTOS.add(doctorDTO);
+        });
+
+        return doctorDTOS;
     }
 
 
