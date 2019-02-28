@@ -93,6 +93,16 @@ public class Patient  {
     private
     List<PatientSymptoms> patientSymptoms = new ArrayList<>();
 
+    @OneToMany(mappedBy = "patient",fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
+    private List<DoctorRequestForFamDoc> doctorRequestForFamDocList;
+
+    public List<DoctorRequestForFamDoc> getDoctorRequestForFamDocList() {
+        return doctorRequestForFamDocList;
+    }
+
+    public void setDoctorRequestForFamDocList(List<DoctorRequestForFamDoc> doctorRequestForFamDocList) {
+        this.doctorRequestForFamDocList = doctorRequestForFamDocList;
+    }
 
     public String getPID() {
         return PID;

@@ -54,11 +54,10 @@ public class DoctorServiceImpl implements DoctorService {
 
         allDocs.forEach(doctor -> {
 
-            doctorDTOS.add(new DoctorDTO(doctor.getDID(), doctor.getFname(), doctor.getMname(), doctor.getLname(), doctor.getGender(), doctor.getDob()
-                    , doctor.getNIC(), doctor.getCountry(), doctor.getCity(), doctor.getLane(), doctor.getCode(), doctor.getLat(), doctor.getLng(), doctor.getProfilePic(), doctor.getUniversity(), doctor.getDegree()
-                    , doctor.getSpecilizedIn(), doctor.getHostipal(), doctor.getGovDID(), doctor.getWebFee(), doctor.getPpFee(), doctor.getToHomeFee(),doctor.getAboutMe()
+            DoctorDTO doctorDTO = new DoctorDTO();
+            BeanUtils.copyProperties(doctor,doctorDTO);
+            doctorDTOS.add(doctorDTO);
 
-            ));
 
         });
 
@@ -225,6 +224,41 @@ public class DoctorServiceImpl implements DoctorService {
         });
 
         return doctorDTOS;
+    }
+
+    @Override
+    public List<DoctorDTO> getDoctors(String param) {
+
+        List<DoctorDTO> doctorDTOS = new ArrayList<>();
+        List<Doctor> doctorsByName = docRep.getDoctorsByName(param);
+        List<Doctor> doctorsHospital = docRep.getDoctorsHospital(param);
+        List<Doctor> doctorsBySpecilizedIn = docRep.getDoctorsSpecial(param);
+        if(!doctorsByName.isEmpty()){
+
+            doctorsByName.forEach(doctor -> {
+                DoctorDTO doctorDTO = new DoctorDTO();
+                BeanUtils.copyProperties(doctor,doctorDTO);
+                doctorDTOS.add(doctorDTO);
+            });
+
+        }else if(!doctorsHospital.isEmpty()){
+
+            doctorsHospital.forEach(doctor -> {
+                DoctorDTO doctorDTO = new DoctorDTO();
+                BeanUtils.copyProperties(doctor,doctorDTO);
+                doctorDTOS.add(doctorDTO);
+            });
+        }else if(!doctorsBySpecilizedIn.isEmpty()){
+            doctorsBySpecilizedIn.forEach(doctor -> {
+                DoctorDTO doctorDTO = new DoctorDTO();
+                BeanUtils.copyProperties(doctor,doctorDTO);
+                doctorDTOS.add(doctorDTO);
+            });
+        }
+
+        return doctorDTOS;
+
+        
     }
 
 

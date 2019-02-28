@@ -35,4 +35,7 @@ public interface DoctorService {
 
     String getVideoKey(String DID);
     List<DoctorDTO> getDoctorsBySpecilizedIn(String sepecial);
+
+
+    List<DoctorDTO> getDoctors(String param);
 }

@@ -27,6 +27,14 @@ public interface DoctorRepository extends JpaRepository<Doctor,String> {
     @Query(value = "SELECT * FROM Doctor d WHERE d.specilizedIn=:specilizedIn",nativeQuery = true)
     List<Doctor> getDoctorsBySpecilizedIn(@Param("specilizedIn") String specilizedIn);
 
+    @Query(value = "SELECT * FROM Doctor d WHERE d.fname LIKE  %:pram%",nativeQuery = true)
+    List<Doctor> getDoctorsByName(@Param("pram") String pram);
+
+    @Query(value = "SELECT * FROM Doctor d WHERE d.hostipal LIKE  %:pram%",nativeQuery = true)
+    List<Doctor> getDoctorsHospital(@Param("pram") String pram);
+
+    @Query(value = "SELECT * FROM Doctor d WHERE d.specilizedIn LIKE  %:pram%",nativeQuery = true)
+    List<Doctor> getDoctorsSpecial(@Param("pram") String pram);
 
 
 }

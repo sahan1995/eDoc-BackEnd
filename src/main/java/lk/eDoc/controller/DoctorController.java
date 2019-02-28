@@ -120,4 +120,11 @@ public class DoctorController {
     List<DoctorDTO> getDoctorbySpecial(@RequestParam("special") String special){
         return docService.getDoctorsBySpecilizedIn(special);
     }
+
+    @GetMapping(path = "/getDoctor")
+    List<DoctorDTO> getDoctors(@RequestParam("param") String param){
+
+        return docService.getDoctors(param);
+    }
+
 }

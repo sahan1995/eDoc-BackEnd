@@ -145,6 +145,18 @@ public class Doctor  {
     List<PatientSymptoms> patientSymptoms = new ArrayList<>();
 
 
+    @OneToMany(mappedBy = "doctor",fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
+    private List<DoctorRequestForFamDoc> doctorRequestForFamDocList;
+
+
+    public List<DoctorRequestForFamDoc> getDoctorRequestForFamDocList() {
+        return doctorRequestForFamDocList;
+    }
+
+    public void setDoctorRequestForFamDocList(List<DoctorRequestForFamDoc> doctorRequestForFamDocList) {
+        this.doctorRequestForFamDocList = doctorRequestForFamDocList;
+    }
+
     public String getDID() {
         return DID;
     }
