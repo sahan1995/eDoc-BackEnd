@@ -21,5 +21,10 @@ public class PatientFamDocController {
 
     }
 
+    @PutMapping
+    boolean addPatient(@RequestParam("PID") String PID,@RequestParam("DID") String DID){
+
+        return patientFamDocService.addPatient(PID, DID);
+    }
 
 }
