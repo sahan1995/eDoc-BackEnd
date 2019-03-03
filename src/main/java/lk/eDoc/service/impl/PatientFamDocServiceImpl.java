@@ -33,4 +33,10 @@ public class PatientFamDocServiceImpl implements PatientFamDocService {
         patientFamDocRepository.save(new PatientFamDoc(PID,DID,patientRepository.findById(PID).get(),doctorRepository.findById(DID).get()));
         return true;
     }
+
+    @Override
+    public boolean removeDoctor(String PID, String DID) {
+        patientFamDocRepository.deleteById(new PatientFamDoc_PK(PID,DID));
+        return  true;
+    }
 }

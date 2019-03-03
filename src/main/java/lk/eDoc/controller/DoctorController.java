@@ -4,6 +4,8 @@ import lk.eDoc.dto.AppointmentDTO;
 import lk.eDoc.dto.DoctorDTO;
 import lk.eDoc.service.DoctorService;
 import lk.eDoc.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +27,10 @@ public class DoctorController {
 
     @Autowired
     private UserService userService;
+
+
+    Logger logger = LoggerFactory.getLogger(DoctorController.class);
+
     @GetMapping
     public List<DoctorDTO> getAllDoctors(){
 
@@ -98,7 +104,9 @@ public class DoctorController {
     @GetMapping(path = "/getDoctorAppointments")
     public List<AppointmentDTO> getDoctorAppointments(@RequestParam("DID") String DID){
 
+        logger.trace("Get Doctor Appointments");
         return docService.doctorAppointment(DID);
+
     }
 
 

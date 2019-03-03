@@ -15,4 +15,6 @@ public interface DoctorRequsetFamDocService {
     List<DoctorRequestFamDocDTO> findDoctorRequest(String DID);
 
     void updateIsAccept(String PID,String DID);
+
+    boolean removeDoctor(String PID,String DID);
 }

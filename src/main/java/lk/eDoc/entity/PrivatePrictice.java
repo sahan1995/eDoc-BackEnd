@@ -25,10 +25,10 @@ public class PrivatePrictice {
     private Double lng;
 
     private
-    Time openTime;
+    String openTime;
 
     private
-    Time closeTime;
+    String closeTime;
 
     @OneToOne(cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
     @JoinColumn(name = "DID", referencedColumnName = "DID")
@@ -107,23 +107,23 @@ public class PrivatePrictice {
         this.lng = lng;
     }
 
-    public Time getOpenTime() {
+    public String getOpenTime() {
         return openTime;
     }
 
-    public void setOpenTime(Time openTime) {
+    public void setOpenTime(String openTime) {
         this.openTime = openTime;
     }
 
-    public Time getCloseTime() {
+    public String getCloseTime() {
         return closeTime;
     }
 
-    public void setCloseTime(Time closeTime) {
+    public void setCloseTime(String closeTime) {
         this.closeTime = closeTime;
     }
 
-    public PrivatePrictice(String PPID, String name, String country, String city, String lane, String code, String tel, Double lat, Double lng, Time openTime, Time closeTime) {
+    public PrivatePrictice(String PPID, String name, String country, String city, String lane, String code, String tel, Double lat, Double lng, String openTime, String closeTime) {
         this.PPID = PPID;
         this.name = name;
         this.country = country;

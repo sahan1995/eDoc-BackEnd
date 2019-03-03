@@ -26,5 +26,11 @@ public class PatientFamDocController {
 
         return patientFamDocService.addPatient(PID, DID);
     }
+    @DeleteMapping
+    boolean removeFamDoc(@RequestParam("PID") String PID,@RequestParam("DID") String DID){
+        return patientFamDocService.removeDoctor(PID, DID);
+
+    }
+
 
 }

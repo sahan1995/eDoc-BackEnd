@@ -9,4 +9,5 @@ public interface PrescriptionService  {
 
     String getLastId();
 
+    PrescriptionDTO getPrescription(String appCode);
 }

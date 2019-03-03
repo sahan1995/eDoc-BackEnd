@@ -74,4 +74,11 @@ public class DoctorRequsetFamDocServiceImpl implements DoctorRequsetFamDocServic
 
         doctorRequsetFamDocRepository.updateIsAccept(true,DID,PID);
     }
+
+    @Override
+    public boolean removeDoctor(String PID, String DID) {
+        doctorRequsetFamDocRepository.deleteById(new DoctorRequestForFamDoc_PK(PID,DID));
+        return true;
+
+    }
 }

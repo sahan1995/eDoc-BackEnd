@@ -63,4 +63,12 @@ public class Prescription {
                 ", appointment=" + appointment +
                 '}';
     }
+
+    public List<Drug> getDrugs() {
+        return drugs;
+    }
+
+    public void setDrugs(List<Drug> drugs) {
+        this.drugs = drugs;
+    }
 }

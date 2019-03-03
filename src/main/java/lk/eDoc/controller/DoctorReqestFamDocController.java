@@ -42,10 +42,12 @@ public class DoctorReqestFamDocController {
     @PostMapping(path = "/updateIsAccept")
     void updateIsAccept(@RequestParam("PID") String PID,@RequestParam("DID") String DID){
 
-        System.out.println("Con "+PID);
-
-        System.out.println("Con "+DID);
-
         doctorRequsetFamDocService.updateIsAccept(PID, DID);
+    }
+
+    @DeleteMapping(path = "/removeDoctor")
+    boolean removeDoctor(@RequestParam("PID") String PID,@RequestParam("DID") String DID){
+        return  doctorRequsetFamDocService.removeDoctor(PID,DID);
+
     }
 }

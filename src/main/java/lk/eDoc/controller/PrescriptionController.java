@@ -34,4 +34,10 @@ public class PrescriptionController {
     }
 
 
+
+    @GetMapping(path = "/getPres")
+    PrescriptionDTO getPrescription(@RequestParam("appCode") String appCode){
+        return prescriptionService.getPrescription(appCode);
+    }
+
 }

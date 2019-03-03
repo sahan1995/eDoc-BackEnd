@@ -6,6 +6,8 @@ import lk.eDoc.service.AppointmentService;
 import lk.eDoc.service.DoctorService;
 import lk.eDoc.service.PatientService;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.MediaType;
@@ -27,6 +29,9 @@ public class AppointmentController {
 
     @Autowired
     PatientService patientService;
+
+
+  Logger logger = LoggerFactory.getLogger(AppointmentController.class);
 
     @GetMapping(path = "/isBooked")
     Boolean isBooked(@RequestParam("DID") String DID, @RequestParam("date") String date, @RequestParam("time") String time) {

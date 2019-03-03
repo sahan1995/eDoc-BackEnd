@@ -23,9 +23,9 @@ public class PrivatePracticeDTO {
 
     private Double lng;
 
-    private Time openTime;
+    private String openTime;
 
-    private Time closeTime;
+    private String closeTime;
 
     private DoctorDTO doctorDTO;
 
@@ -102,19 +102,19 @@ public class PrivatePracticeDTO {
         this.lng = lng;
     }
 
-    public Time getOpenTime() {
+    public String getOpenTime() {
         return openTime;
     }
 
-    public void setOpenTime(Time openTime) {
+    public void setOpenTime(String openTime) {
         this.openTime = openTime;
     }
 
-    public Time getCloseTime() {
+    public String getCloseTime() {
         return closeTime;
     }
 
-    public void setCloseTime(Time closeTime) {
+    public void setCloseTime(String closeTime) {
         this.closeTime = closeTime;
     }
 
@@ -126,7 +126,7 @@ public class PrivatePracticeDTO {
         this.doctorDTO = doctorDTO;
     }
 
-    public PrivatePracticeDTO(String PPID, String name, String country, String city, String lane, String code, String tel, Double lat, Double lng, Time openTime, Time closeTime) {
+    public PrivatePracticeDTO(String PPID, String name, String country, String city, String lane, String code, String tel, Double lat, Double lng, String openTime, String closeTime) {
         this.PPID = PPID;
         this.name = name;
         this.country = country;

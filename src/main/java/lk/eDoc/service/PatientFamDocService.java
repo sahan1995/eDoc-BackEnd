@@ -8,4 +8,6 @@ public interface PatientFamDocService {
 
     boolean addPatient(String PID,String DID);
 
+    boolean removeDoctor(String PID,String DID);
+
 }
