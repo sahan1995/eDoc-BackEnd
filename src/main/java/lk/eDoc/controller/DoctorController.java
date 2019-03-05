@@ -19,7 +19,11 @@ import java.util.List;
 @CrossOrigin
 @RestController
 @RequestMapping(value = "api/v1/doctors")
+/**
+ * This is the Model class for the controlling Doctors
+ */
 public class DoctorController {
+
 
 
     @Autowired
@@ -31,6 +35,11 @@ public class DoctorController {
 
     Logger logger = LoggerFactory.getLogger(DoctorController.class);
 
+
+    /**
+     * Get all All Doctors
+     * @return All Doctors list
+     */
     @GetMapping
     public List<DoctorDTO> getAllDoctors(){
 
@@ -39,6 +48,12 @@ public class DoctorController {
 
     }
 
+
+    /**
+     * Get the Doctor according to the doctor ID (DID)
+     * @param DID Doctor ID
+     * @return The Doctor DTO
+     */
     @GetMapping(value = "/{id}")
     public DoctorDTO findbyID(@PathVariable("id") String DID){
 
@@ -46,6 +61,11 @@ public class DoctorController {
         return docService.findById(DID);
     }
 
+    /**
+     * Save the Doctor (DID,doctorDTO)
+     * @param DID Doctor ID
+     * @param doctorDTO Doctor DTO containing all the information of doctor
+     */
     @PutMapping(value = "/{id}")
     public void saveDoctor(@PathVariable("id") String DID,  @RequestBody DoctorDTO doctorDTO){
 
@@ -56,12 +76,25 @@ public class DoctorController {
 
     }
 
+
+    /**
+     * Get the last ID of doctor table
+     * @return The last ID of Doctor Table
+     */
     @GetMapping(path = "/getLastID")
     public String getLastID(){
 
-
        return docService.getLastID();
     }
+
+
+    /**
+     * Save the Profile Picture of Doctor (proImg)
+     * @param proImg The profile Picture
+     * @return The state of isSave or Not. The value will be true or false
+     * @throws IOException
+     * @throws URISyntaxException
+     */
     @PutMapping(path = "/proImg")
     public boolean saveProfile(@RequestPart("proImg") MultipartFile proImg) throws IOException, URISyntaxException {
 
@@ -69,11 +102,21 @@ public class DoctorController {
         return docService.saveImage(proImg);
 
     }
+
+    /**
+     * Check the user name is already taken (userName)
+     * @param userName The user name of Doctor
+     * @return The state of already taken or not. The value will be true of false
+     */
     @GetMapping(path = "/isExsists/{userName}")
     public boolean isUserNameExsists(@PathVariable("userName") String userName){
         return userService.isExists(userName);
     }
 
+    /**
+     * Get the all doctors Cities
+     * @return The arraylist of Cities
+     */
     @GetMapping(path = "/address")
     public ArrayList<String> allAddress(){
 
@@ -86,6 +129,11 @@ public class DoctorController {
         return address;
     }
 
+    /**
+     * Get the Profile Picture according to the picture name(picName)
+     * @param picName Picture name
+     * @return The bytes of Picture
+     */
     @GetMapping(path="/getPic",produces = {"image/jpeg","image/png"})
     public byte[] getProfilePic(@RequestParam("picName") String picName){
 
@@ -101,6 +149,11 @@ public class DoctorController {
         }
     }
 
+    /**
+     * Get tht Appointment list according to the Doctor ID (DID)
+     * @param DID Doctor ID
+     * @return List of Appointment
+     */
     @GetMapping(path = "/getDoctorAppointments")
     public List<AppointmentDTO> getDoctorAppointments(@RequestParam("DID") String DID){
 
@@ -109,7 +162,11 @@ public class DoctorController {
 
     }
 
-
+    /**
+     * Update the Key of video consultation(DID,Key)
+     * @param DID Doctor ID
+     * @param Key Key of Video consultation
+     */
     @PostMapping(path = "/updateVideoKey")
     public void updateVideoKey(@RequestParam("DID") String DID,@RequestParam("Key") String Key){
         System.out.println(DID);
@@ -117,6 +174,11 @@ public class DoctorController {
         docService.updateVideoKey(DID, Key);
     }
 
+    /**
+     * Get the Video consultation key according to the Doctor ID(DID)
+     * @param DID Doctor ID
+     * @return The key of Video Consultation
+     */
 
     @GetMapping(path = "/getVideoKey")
     public String getVideoKey(@RequestParam("DID") String DID){
@@ -124,13 +186,23 @@ public class DoctorController {
         return docService.getVideoKey(DID);
     }
 
+    /**
+     * Get the list of doctor according to specialized
+     * @param special Specialized of Doctor
+     * @return List of Doctors
+     */
     @GetMapping(path = "/getDoctorbySpecial")
-    List<DoctorDTO> getDoctorbySpecial(@RequestParam("special") String special){
+    public List<DoctorDTO> getDoctorbySpecial(@RequestParam("special") String special){
         return docService.getDoctorsBySpecilizedIn(special);
     }
 
+    /**
+     * Get all Doctors by Their name or hospital of specialized
+     * @param param  Keyword to search
+     * @return List of Doctors
+     */
     @GetMapping(path = "/getDoctor")
-    List<DoctorDTO> getDoctors(@RequestParam("param") String param){
+    public List<DoctorDTO> getDoctors(@RequestParam("param") String param){
 
         return docService.getDoctors(param);
     }
