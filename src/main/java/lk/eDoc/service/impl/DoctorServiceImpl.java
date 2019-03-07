@@ -261,5 +261,45 @@ public class DoctorServiceImpl implements DoctorService {
         
     }
 
+    @Override
+    public List<AppointmentDTO> getFinishedAppointmentsofDocotr(String DID) {
+        List<Appointment> finishedAppointmentsofDocotr = appointmentRepository.getFinishedAppointmentsofDocotr(DID, true);
+        if(finishedAppointmentsofDocotr.isEmpty()){
+            return null;
+        }
+        List<AppointmentDTO> appointmentDTOS = new ArrayList<>();
+        finishedAppointmentsofDocotr.forEach(appointment -> {
+            AppointmentDTO appointmentDTO = new AppointmentDTO();
+            PatientDTO patientDTO = new PatientDTO();
+            PrescriptionDTO prescriptionDTO = new PrescriptionDTO();
+            List<DrugDTO> drugDTOS = new ArrayList<>();
+
+            BeanUtils.copyProperties(appointment,appointmentDTO);
+            BeanUtils.copyProperties(appointment.getPatient(),patientDTO);
+            BeanUtils.copyProperties(appointment.getPrescription(),prescriptionDTO);
+
+            appointment.getPrescription().getDrugs().forEach(drug -> {
+
+                System.out.println(drug.getDrug()+" "+appointment.getAppCode());
+
+                DrugDTO drugDTO = new DrugDTO();
+                BeanUtils.copyProperties(drug,drugDTO);
+                drugDTOS.add(drugDTO);
+
+            });
+
+
+            prescriptionDTO.setDrugs(drugDTOS);
+            appointmentDTO.setPrescriptionDTO(prescriptionDTO);
+            appointmentDTO.setPatientDTO(patientDTO);
+            appointmentDTOS.add(appointmentDTO);
+
+
+
+        });
+        return appointmentDTOS;
+
+    }
+
 
 }

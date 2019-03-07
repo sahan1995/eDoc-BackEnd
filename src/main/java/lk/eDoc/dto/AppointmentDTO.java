@@ -27,6 +27,16 @@ public class AppointmentDTO {
     DoctorDTO doctorDTO;
 
 
+    private  PrescriptionDTO prescriptionDTO;
+
+    public PrescriptionDTO getPrescriptionDTO() {
+        return prescriptionDTO;
+    }
+
+    public void setPrescriptionDTO(PrescriptionDTO prescriptionDTO) {
+        this.prescriptionDTO = prescriptionDTO;
+    }
+
     private boolean isCancle;
 
     public boolean isCancle() {
@@ -112,24 +122,32 @@ public class AppointmentDTO {
         this.isCheck = isCheck;
     }
 
-    public AppointmentDTO(String appCode, String time, String date, String appType, boolean isCheck, PatientDTO patientDTO, DoctorDTO doctorDTO) {
-        AppCode = appCode;
-        this.time = time;
-        this.date = date;
-        AppType = appType;
-        this.isCheck = isCheck;
-        this.patientDTO = patientDTO;
-        this.doctorDTO = doctorDTO;
-    }
+//    public AppointmentDTO(String appCode, String time, String date, String appType, boolean isCheck, PatientDTO patientDTO, DoctorDTO doctorDTO) {
+//        AppCode = appCode;
+//        this.time = time;
+//        this.date = date;
+//        AppType = appType;
+//        this.isCheck = isCheck;
+//        this.patientDTO = patientDTO;
+//        this.doctorDTO = doctorDTO;
+//    }
+
 
     @Override
     public String toString() {
         return "AppointmentDTO{" +
                 "AppCode='" + AppCode + '\'' +
-                ", time=" + time +
-                ", date=" + date +
+                ", time='" + time + '\'' +
+                ", date='" + date + '\'' +
                 ", AppType='" + AppType + '\'' +
                 ", isCheck=" + isCheck +
+                ", patientDTO=" + patientDTO +
+                ", doctorDTO=" + doctorDTO +
+                ", prescriptionDTO=" + prescriptionDTO +
+                ", isCancle=" + isCancle +
                 '}';
+    }
+
+    public AppointmentDTO() {
     }
 }

@@ -143,12 +143,14 @@ public class Appointment {
     public String toString() {
         return "Appointment{" +
                 "AppCode='" + AppCode + '\'' +
-                ", time=" + time +
-                ", date=" + date +
+                ", time='" + time + '\'' +
+                ", date='" + date + '\'' +
                 ", AppType='" + AppType + '\'' +
                 ", isCheck=" + isCheck +
+                ", isCancle=" + isCancle +
+                ", patient=" + patient +
+                ", doctor=" + doctor +
+                ", prescription=" + prescription +
                 '}';
     }
-
-
 }

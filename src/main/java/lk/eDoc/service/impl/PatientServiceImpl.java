@@ -1,11 +1,9 @@
 package lk.eDoc.service.impl;
 
 import lk.eDoc.dto.*;
-import lk.eDoc.entity.Appointment;
-import lk.eDoc.entity.Patient;
-import lk.eDoc.entity.PatientTel;
-import lk.eDoc.entity.User;
+import lk.eDoc.entity.*;
 import lk.eDoc.repository.AppointmentRepository;
+import lk.eDoc.repository.DrugRepository;
 import lk.eDoc.repository.PatientRepository;
 import lk.eDoc.service.AppointmentService;
 import lk.eDoc.service.PatientService;
@@ -42,6 +40,8 @@ public class PatientServiceImpl implements PatientService {
     UserService userService;
     @Autowired
     AppointmentRepository appointmentRepository;
+
+
     @Override
     public List<PatientDTO> getAllPatient() {
 
@@ -213,5 +213,42 @@ public class PatientServiceImpl implements PatientService {
         return appointmentDTOS;
     }
 
+    @Override
+    public List<AppointmentDTO> getFinishedAppointments(String PID) {
+        List<Appointment> finishedAppointments = appointmentRepository.getFinishedAppointments(PID, true);
+        if(finishedAppointments.isEmpty()){
+            return null;
+        }
+        List<AppointmentDTO> appointmentDTOS = new ArrayList<>();
 
+        finishedAppointments.forEach(appointment -> {
+            AppointmentDTO appointmentDTO = new AppointmentDTO();
+            DoctorDTO doctorDTO = new DoctorDTO();
+            PrescriptionDTO prescriptionDTO = new PrescriptionDTO();
+            List<DrugDTO> drugDTOS = new ArrayList<>();
+            BeanUtils.copyProperties(appointment,appointmentDTO);
+            BeanUtils.copyProperties(appointment.getDoctor(),doctorDTO);
+            BeanUtils.copyProperties(appointment.getPrescription(),prescriptionDTO);
+
+
+            appointment.getPrescription().getDrugs().forEach(drug -> {
+
+                System.out.println(drug.getDrug()+" "+appointment.getAppCode());
+
+                DrugDTO drugDTO = new DrugDTO();
+                BeanUtils.copyProperties(drug,drugDTO);
+                drugDTOS.add(drugDTO);
+
+            });
+
+
+            prescriptionDTO.setDrugs(drugDTOS);
+            appointmentDTO.setPrescriptionDTO(prescriptionDTO);
+            appointmentDTO.setDoctorDTO(doctorDTO);
+            appointmentDTOS.add(appointmentDTO);
+        });
+
+        return appointmentDTOS;
+
+    }
 }

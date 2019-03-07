@@ -34,4 +34,6 @@ public interface PatientService  {
     List<AppointmentDTO> patientAppointments(String PID);
 
     List<AppointmentDTO> getAppointmentbyType(String PID,String appType);
+
+    List<AppointmentDTO> getFinishedAppointments(String PID);
 }

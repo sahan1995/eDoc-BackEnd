@@ -20,7 +20,6 @@ public interface AppointmentRepository extends JpaRepository<Appointment,String>
     @Query(value = "SELECT COUNT(AppCode) FROM Appointment", nativeQuery = true)
     String getLastID();
 
-
     @Query(value = "SELECT  * FROM  Appointment a WHERE a.DID=:DID AND a.isCheck=:isCheck AND a.isCancle=:isCancle ",nativeQuery = true)
     List<Appointment> doctorAppointments(@Param("DID") String DID, @Param("isCheck") int isCheck,@Param("isCancle") int isCancle);
 
@@ -50,5 +49,13 @@ public interface AppointmentRepository extends JpaRepository<Appointment,String>
     @Modifying
     @Query(value = "update  Appointment set isCheck=:isCheck where AppCode=:AppCode",nativeQuery = true)
     void finishAppointment(@Param("isCheck") int isCheck,@Param("AppCode") String appCode);
+
+    @Query(value = "SELECT * FROM Appointment WHERE PID=:PID AND isCheck=:isCheck",nativeQuery = true)
+    List<Appointment> getFinishedAppointments(@Param("PID") String PID,@Param("isCheck") boolean isCheck);
+
+
+    @Query(value = "SELECT  * FROM  Appointment WHERE  DID=:DID AND isCheck=:isCheck",nativeQuery = true)
+    List<Appointment> getFinishedAppointmentsofDocotr(@Param("DID") String DID,@Param("isCheck") boolean isCheck);
+
 
 }

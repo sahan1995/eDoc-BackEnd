@@ -207,4 +207,10 @@ public class DoctorController {
         return docService.getDoctors(param);
     }
 
+
+    @GetMapping(path = "/finishedAppointments")
+    public List<AppointmentDTO> getFinishedAppointmetns(@RequestParam("DID") String DID){
+        return  docService.getFinishedAppointmentsofDocotr(DID);
+    }
+
 }

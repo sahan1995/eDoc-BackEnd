@@ -57,6 +57,7 @@ public class PrescriptionServiceImpl implements PrescriptionService {
         List<DrugDTO> drugDTOS = new ArrayList<>();
 
         drugs.forEach(drug -> {
+
             DrugDTO drugDTO = new DrugDTO();
 
             BeanUtils.copyProperties(drug,drugDTO);

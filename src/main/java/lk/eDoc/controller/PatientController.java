@@ -112,4 +112,15 @@ public class PatientController {
     List<AppointmentDTO> getAppointmentByType(@RequestParam("PID")String PID,@RequestParam("appType")String type){
         return patientService.getAppointmentbyType(PID,type);
     }
+
+    /**
+     * Get All finished appointment according to the Patient ID
+     * @param PID Patient ID
+     * @return List of finished Appointments
+     */
+    @GetMapping(path = "/finishedAppointmet")
+    List<AppointmentDTO> getFinishedAppointments(@RequestParam("PID") String PID){
+        return  patientService.getFinishedAppointments(PID);
+    }
+
 }

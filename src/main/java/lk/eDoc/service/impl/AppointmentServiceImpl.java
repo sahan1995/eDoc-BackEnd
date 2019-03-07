@@ -1,8 +1,6 @@
 package lk.eDoc.service.impl;
 
-import lk.eDoc.dto.AppointmentDTO;
-import lk.eDoc.dto.DoctorDTO;
-import lk.eDoc.dto.PatientDTO;
+import lk.eDoc.dto.*;
 import lk.eDoc.entity.Appointment;
 import lk.eDoc.entity.Doctor;
 import lk.eDoc.entity.Patient;
@@ -178,6 +176,8 @@ public class AppointmentServiceImpl implements AppointmentService {
          appointmentRepo.finishAppointment(1,appCode);
          return true;
     }
+
+
 
 
 }
