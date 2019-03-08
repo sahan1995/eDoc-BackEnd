@@ -140,6 +140,24 @@ public class PrivatePracticeDTO {
         this.closeTime = closeTime;
     }
 
+    public PrivatePracticeDTO(String PPID, String name, String country, String city, String lane, String code, String tel, Double lat, Double lng, String openTime, String closeTime, DoctorDTO doctorDTO) {
+        this.PPID = PPID;
+        this.name = name;
+        this.country = country;
+        this.city = city;
+        this.lane = lane;
+        this.code = code;
+        this.tel = tel;
+        this.lat = lat;
+        this.lng = lng;
+        this.openTime = openTime;
+        this.closeTime = closeTime;
+        this.doctorDTO = doctorDTO;
+    }
+
+    public PrivatePracticeDTO() {
+    }
+
     @Override
     public String toString() {
         return "PrivatePracticeDTO{" +
@@ -152,8 +170,9 @@ public class PrivatePracticeDTO {
                 ", tel='" + tel + '\'' +
                 ", lat=" + lat +
                 ", lng=" + lng +
-                ", openTime=" + openTime +
-                ", closeTime=" + closeTime +
+                ", openTime='" + openTime + '\'' +
+                ", closeTime='" + closeTime + '\'' +
+                ", doctorDTO=" + doctorDTO +
                 '}';
     }
 }
