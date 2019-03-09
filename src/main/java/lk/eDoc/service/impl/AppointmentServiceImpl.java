@@ -15,6 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.sql.Time;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -33,11 +35,11 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
-    public boolean addAppointment(String appCpde,AppointmentDTO app) {
-        if(!appCpde.equals(app.getAppCode())){
+    public boolean addAppointment(String appCpde, AppointmentDTO app) {
+        if (!appCpde.equals(app.getAppCode())) {
             throw new RuntimeException("Codes are not Same");
         }
-        Appointment appointment = new Appointment(app.getAppCode(), app.getTime(), app.getDate(), app.getAppType(), app.isCheck(),app.isCancle());
+        Appointment appointment = new Appointment(app.getAppCode(), app.getTime(), app.getDate(), app.getAppType(), app.isCheck(), app.isCancle());
 
         PatientDTO patientDTO = app.getPatientDTO();
 
@@ -50,7 +52,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 
         appointment.setDoctor(new Doctor(doctor.getDID(), doctor.getFname(), doctor.getMname(), doctor.getLname(), doctor.getGender(), doctor.getDob()
                 , doctor.getIdenty(), doctor.getCountry(), doctor.getCity(), doctor.getLane(), doctor.getCode(), doctor.getLat(), doctor.getLng(), doctor.getProfilePic(), doctor.getUniversity(), doctor.getDegree()
-                , doctor.getSpecilizedIn(), doctor.getHostipal(), doctor.getGovDID(), doctor.getWebFee(), doctor.getPpFee(), doctor.getToHomeFee(),doctor.getAboutMe()));
+                , doctor.getSpecilizedIn(), doctor.getHostipal(), doctor.getGovDID(), doctor.getWebFee(), doctor.getPpFee(), doctor.getToHomeFee(), doctor.getAboutMe()));
 
         appointmentRepo.save(appointment);
 
@@ -60,10 +62,10 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Override
     public boolean checkAppointmentAvalable(String DID, String date, String time) {
 
-        System.out.println(DID+" "+date+" "+time);
-        String appointment = appointmentRepo.checkAppointmentAvalable(DID, date, time, 0,0);
+        System.out.println(DID + " " + date + " " + time);
+        String appointment = appointmentRepo.checkAppointmentAvalable(DID, date, time, 0, 0);
         System.out.println(appointment);
-        if(appointment!=null){
+        if (appointment != null) {
             System.out.println("Methana");
             return true;
         }
@@ -75,7 +77,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 
 
         String lastID1 = appointmentRepo.getLastID();
-        if(lastID1.equals("")){
+        if (lastID1.equals("")) {
             return null;
         }
         return lastID1;
@@ -85,7 +87,7 @@ public class AppointmentServiceImpl implements AppointmentService {
     public AppointmentDTO findByID(String appCode) {
 
         Optional<Appointment> byId = appointmentRepo.findById(appCode);
-        if(byId.isPresent()){
+        if (byId.isPresent()) {
             Appointment appointment = byId.get();
             Patient patient = appointment.getPatient();
             Doctor doctor = appointment.getDoctor();
@@ -93,8 +95,8 @@ public class AppointmentServiceImpl implements AppointmentService {
             PatientDTO patientDTO = new PatientDTO();
             DoctorDTO doctorDTO = new DoctorDTO();
 
-            BeanUtils.copyProperties(patient,patientDTO);
-            BeanUtils.copyProperties(doctor,doctorDTO);
+            BeanUtils.copyProperties(patient, patientDTO);
+            BeanUtils.copyProperties(doctor, doctorDTO);
             System.out.println(patient);
             AppointmentDTO appointmentDTO = new AppointmentDTO(appointment.getAppCode(), appointment.getTime(), appointment.getDate(), appointment.getAppType(), appointment.isCheck());
 //            appointmentDTO.setPatientDTO(new PatientDTO(patient.getPID(), patient.getFname(), patient.getMname(),
@@ -109,7 +111,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 
             appointmentDTO.setDoctorDTO(doctorDTO);
             return appointmentDTO;
-        }else{
+        } else {
             return null;
         }
     }
@@ -117,16 +119,16 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Override
     public List<AppointmentDTO> findByApptype(String appType, String DID) {
 
-        List<Appointment> byType = appointmentRepo.getByType(appType, DID,0,0);
+        List<Appointment> byType = appointmentRepo.getByType(appType, DID, 0, 0);
         List<AppointmentDTO> appointmentDTOS = new ArrayList<>();
-        if(byType!=null){
+        if (byType != null) {
 
             byType.forEach(appointment -> {
                 PatientDTO patientDTO = new PatientDTO();
                 DoctorDTO doctorDTO = new DoctorDTO();
-                BeanUtils.copyProperties(appointment.getPatient(),patientDTO);
-                BeanUtils.copyProperties(appointment.getDoctor(),doctorDTO);
-                appointmentDTOS.add(new AppointmentDTO(appointment.getAppCode(),appointment.getTime(),appointment.getDate(),appointment.getAppType(),appointment.isCheck(),patientDTO,doctorDTO,appointment.isCancle()));
+                BeanUtils.copyProperties(appointment.getPatient(), patientDTO);
+                BeanUtils.copyProperties(appointment.getDoctor(), doctorDTO);
+                appointmentDTOS.add(new AppointmentDTO(appointment.getAppCode(), appointment.getTime(), appointment.getDate(), appointment.getAppType(), appointment.isCheck(), patientDTO, doctorDTO, appointment.isCancle()));
 
             });
             return appointmentDTOS;
@@ -139,15 +141,15 @@ public class AppointmentServiceImpl implements AppointmentService {
     public List<AppointmentDTO> findByDate(String date, String DID) {
         List<Appointment> byDate = appointmentRepo.findByDate(date, DID, 0, 0);
         List<AppointmentDTO> appointmentDTOS = new ArrayList<>();
-        if (byDate==null){
-            return  null;
+        if (byDate == null) {
+            return null;
         }
         byDate.forEach(appointment -> {
             PatientDTO patientDTO = new PatientDTO();
             DoctorDTO doctorDTO = new DoctorDTO();
-            BeanUtils.copyProperties(appointment.getPatient(),patientDTO);
-            BeanUtils.copyProperties(appointment.getDoctor(),doctorDTO);
-            appointmentDTOS.add(new AppointmentDTO(appointment.getAppCode(),appointment.getTime(),appointment.getDate(),appointment.getAppType(),appointment.isCheck(),patientDTO,doctorDTO,appointment.isCancle()));
+            BeanUtils.copyProperties(appointment.getPatient(), patientDTO);
+            BeanUtils.copyProperties(appointment.getDoctor(), doctorDTO);
+            appointmentDTOS.add(new AppointmentDTO(appointment.getAppCode(), appointment.getTime(), appointment.getDate(), appointment.getAppType(), appointment.isCheck(), patientDTO, doctorDTO, appointment.isCancle()));
         });
         return appointmentDTOS;
     }
@@ -157,15 +159,15 @@ public class AppointmentServiceImpl implements AppointmentService {
 
         List<Appointment> byDateAndType = appointmentRepo.findByDateAndType(date, DID, 0, 0, appType);
         List<AppointmentDTO> appointmentDTOS = new ArrayList<>();
-        if(byDateAndType==null){
+        if (byDateAndType == null) {
             return null;
         }
         byDateAndType.forEach(appointment -> {
             PatientDTO patientDTO = new PatientDTO();
             DoctorDTO doctorDTO = new DoctorDTO();
-            BeanUtils.copyProperties(appointment.getPatient(),patientDTO);
-            BeanUtils.copyProperties(appointment.getDoctor(),doctorDTO);
-            appointmentDTOS.add(new AppointmentDTO(appointment.getAppCode(),appointment.getTime(),appointment.getDate(),appointment.getAppType(),appointment.isCheck(),patientDTO,doctorDTO,appointment.isCancle()));
+            BeanUtils.copyProperties(appointment.getPatient(), patientDTO);
+            BeanUtils.copyProperties(appointment.getDoctor(), doctorDTO);
+            appointmentDTOS.add(new AppointmentDTO(appointment.getAppCode(), appointment.getTime(), appointment.getDate(), appointment.getAppType(), appointment.isCheck(), patientDTO, doctorDTO, appointment.isCancle()));
         });
 
         return appointmentDTOS;
@@ -173,11 +175,20 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Override
     public boolean finishAppointment(String appCode) {
-         appointmentRepo.finishAppointment(1,appCode);
-         return true;
+        appointmentRepo.finishAppointment(1, appCode);
+        return true;
     }
 
+    @Override
+    public String getPPAppointmentCountofCurrentDay(String DID) {
 
+        DateTimeFormatter ofPattern = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate now = LocalDate.now();
+        System.out.println(ofPattern.format(now));
+        String date = ofPattern.format(now);
+        return appointmentRepo.getPPAppointmentCountofCurrentDay(DID, false, false, date, "Private Practice Consultation");
+
+    }
 
 
 }

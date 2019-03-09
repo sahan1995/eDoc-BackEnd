@@ -149,6 +149,16 @@ public class AppointmentController {
     }
 
 
+    /**
+     * Get Private Practice Appointments Count of Current Day
+     * @param DID Doctor ID
+     * @return Count of PP Appointments of Current Day
+     */
+    @GetMapping(path = "/getAppCount")
+    public String getPPAppointmentCountofCurrentDay(@RequestParam("DID") String DID){
+        return appointmentSe.getPPAppointmentCountofCurrentDay(DID);
+
+    }
 
 
 }

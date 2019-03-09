@@ -57,5 +57,11 @@ public interface AppointmentRepository extends JpaRepository<Appointment,String>
     @Query(value = "SELECT  * FROM  Appointment WHERE  DID=:DID AND isCheck=:isCheck",nativeQuery = true)
     List<Appointment> getFinishedAppointmentsofDocotr(@Param("DID") String DID,@Param("isCheck") boolean isCheck);
 
+    @Query(value = "SELECT COUNT(AppCode) FROM  Appointment app WHERE app.DID=:DID AND  app.isCheck=:isCheck AND app.isCancle=:isCancle AND app.date=:date " +
+            "AND app.AppType=:AppType",nativeQuery = true)
+    String getPPAppointmentCountofCurrentDay(@Param("DID") String DID,@Param("isCheck") boolean isCheck,@Param("isCancle") boolean isCancle,@Param("date") String date,
+                                 @Param("AppType") String appType);
+
+
 
 }

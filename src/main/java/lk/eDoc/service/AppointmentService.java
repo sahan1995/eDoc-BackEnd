@@ -29,5 +29,6 @@ public interface AppointmentService {
 
     boolean finishAppointment(String appCode);
 
+    String getPPAppointmentCountofCurrentDay(String DID);
 
 }

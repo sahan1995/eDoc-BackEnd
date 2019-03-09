@@ -14,12 +14,12 @@ public class DrugController {
     @Autowired
     private DrugService drugService;
 
+
     @PutMapping
     boolean addDrug(@RequestParam("presID") String preID,@RequestBody DrugDTO drugDTO){
 
         System.out.println(drugDTO);
         return  drugService.addDrug(preID,drugDTO);
-
 
     }
 
