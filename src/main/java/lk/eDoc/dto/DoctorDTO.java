@@ -62,6 +62,16 @@ public class DoctorDTO {
 
     private String videoCallID;
 
+    private String email;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getVideoCallID() {
         return videoCallID;
     }
@@ -80,6 +90,7 @@ public class DoctorDTO {
 
 
 //    private String NICNO;
+
 
     @Override
     public String toString() {
@@ -107,9 +118,12 @@ public class DoctorDTO {
                 ", webFee=" + webFee +
                 ", ppFee=" + ppFee +
                 ", toHomeFee=" + toHomeFee +
-                ", doctorTelDTOS=" + doctorTelDTOS +
                 ", role='" + role + '\'' +
+                ", aboutMe='" + aboutMe + '\'' +
+                ", videoCallID='" + videoCallID + '\'' +
+                ", email='" + email + '\'' +
                 ", identy='" + identy + '\'' +
+                ", doctorTelDTOS=" + doctorTelDTOS +
                 '}';
     }
 
@@ -324,7 +338,7 @@ public class DoctorDTO {
         this.toHomeFee = toHomeFee;
     }
 
-    public DoctorDTO(String DID, String fname, String mname, String lname, String gender, Date dob, String identy, String country, String city, String lane, String code, Double lat, Double lng, String profilePic, String university, String degree, String specilizedIn, String hostipal, String govDID, BigDecimal webFee, BigDecimal ppFee, BigDecimal toHomeFee,String aboutMe) {
+    public DoctorDTO(String DID, String fname, String mname, String lname, String gender, Date dob, String identy, String country, String city, String lane, String code, Double lat, Double lng, String profilePic, String university, String degree, String specilizedIn, String hostipal, String govDID, BigDecimal webFee, BigDecimal ppFee, BigDecimal toHomeFee,String aboutMe,String email) {
         this.DID = DID;
         this.fname = fname;
         this.mname = mname;
@@ -348,6 +362,7 @@ public class DoctorDTO {
         this.ppFee = ppFee;
         this.toHomeFee = toHomeFee;
         this.aboutMe = aboutMe;
+        this.email =email;
     }
     public DoctorDTO(String DID, String fname, String mname, String lname, String gender, Date dob, String identy, String country, String city, String lane, String code, Double lat, Double lng, String profilePic, String university, String degree, String specilizedIn, String hostipal, String govDID, BigDecimal webFee, BigDecimal ppFee, BigDecimal toHomeFee,String aboutMe,List<DoctorTelDTO> doctorTelDTOS) {
         this.DID = DID;

@@ -44,13 +44,13 @@ public class SignInController {
             String useID = userDetail.get("useID");
             if(role.equals("patient")) {
                 PatientDTO patient = patientService.findByID(useID);
-                return  new LoginDetailDTO(patient.getPID(), patient.getFname(), patient.getLname(), role,patient.getLat(),patient.getLng());
+                return  new LoginDetailDTO(patient.getPID(), patient.getFname(), patient.getLname(), role,patient.getLat(),patient.getLng(),"test");
 
 
             }else if(role.equals("doctor")){
 
                 DoctorDTO doctor = doctorService.findById(useID);
-                return new LoginDetailDTO(useID,doctor.getFname(),doctor.getLname(),role,doctor.getLat(),doctor.getLng());
+                return new LoginDetailDTO(useID,doctor.getFname(),doctor.getLname(),role,doctor.getLat(),doctor.getLng(),doctor.getEmail());
             }else{
                 return null;
             }

@@ -76,6 +76,16 @@ public class Doctor  {
     @Lob
     private String videoCallID;
 
+    private String email;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getVideoCallID() {
         return videoCallID;
     }
@@ -350,7 +360,7 @@ public class Doctor  {
         this.toHomeFee = toHomeFee;
     }
 
-    public Doctor(String DID, String fname, String mname, String lname, String gender, Date dob, String NIC, String country, String city, String lane, String code, Double lat, Double lng, String profilePic, String university, String degree, String specilizedIn, String hostipal, String govDID, BigDecimal webFee, BigDecimal ppFee, BigDecimal toHomeFee,String aboutMe) {
+    public Doctor(String DID, String fname, String mname, String lname, String gender, Date dob, String NIC, String country, String city, String lane, String code, Double lat, Double lng, String profilePic, String university, String degree, String specilizedIn, String hostipal, String govDID, BigDecimal webFee, BigDecimal ppFee, BigDecimal toHomeFee,String aboutMe,String email) {
         this.DID = DID;
         this.fname = fname;
         this.mname = mname;
@@ -374,6 +384,7 @@ public class Doctor  {
         this.ppFee = ppFee;
         this.toHomeFee = toHomeFee;
         this.aboutMe = aboutMe;
+        this.email = email;
     }
 
     public Doctor() {

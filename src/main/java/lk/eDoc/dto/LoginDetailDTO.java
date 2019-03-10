@@ -5,14 +5,24 @@ public class LoginDetailDTO {
     private String fname;
     private String lname;
     private String role;
+    private String email;
 
-    public LoginDetailDTO(String ID, String fname, String lname, String role, Double lat, Double lng) {
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public LoginDetailDTO(String ID, String fname, String lname, String role, Double lat, Double lng,String email) {
         this.ID = ID;
         this.fname = fname;
         this.lname = lname;
         this.role = role;
         this.lat = lat;
         this.lng = lng;
+        this.email=email;
     }
 
     private Double lat;
@@ -66,12 +76,12 @@ public class LoginDetailDTO {
         this.role = role;
     }
 
-    public LoginDetailDTO(String ID, String fname, String lname, String role) {
-        this.ID = ID;
-        this.fname = fname;
-        this.lname = lname;
-        this.role = role;
-    }
+//    public LoginDetailDTO(String ID, String fname, String lname, String role) {
+//        this.ID = ID;
+//        this.fname = fname;
+//        this.lname = lname;
+//        this.role = role;
+//    }
 
     public LoginDetailDTO() {
 
@@ -84,6 +94,9 @@ public class LoginDetailDTO {
                 ", fname='" + fname + '\'' +
                 ", lname='" + lname + '\'' +
                 ", role='" + role + '\'' +
+                ", email='" + email + '\'' +
+                ", lat=" + lat +
+                ", lng=" + lng +
                 '}';
     }
 }
