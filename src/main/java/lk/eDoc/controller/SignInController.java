@@ -44,7 +44,7 @@ public class SignInController {
             String useID = userDetail.get("useID");
             if(role.equals("patient")) {
                 PatientDTO patient = patientService.findByID(useID);
-                return  new LoginDetailDTO(patient.getPID(), patient.getFname(), patient.getLname(), role,patient.getLat(),patient.getLng(),"test");
+                return  new LoginDetailDTO(patient.getPID(), patient.getFname(), patient.getLname(), role,patient.getLat(),patient.getLng(),patient.getEmail());
 
 
             }else if(role.equals("doctor")){

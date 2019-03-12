@@ -48,6 +48,14 @@ public class Patient  {
 
     private String email;
 
+    public PatientChatRoom getPatientChatRoom() {
+        return patientChatRoom;
+    }
+
+    public void setPatientChatRoom(PatientChatRoom patientChatRoom) {
+        this.patientChatRoom = patientChatRoom;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -64,28 +72,6 @@ public class Patient  {
         this.videoCallID = videoCallID;
     }
 
-//    public Patient(String PID, String fname, String mname, String lname, String gender, Date dob, String NIC, String country, String city, String lane, String code, double lat, double lng, String profilePic, String videoCallID) {
-//        this.PID = PID;
-//        this.fname = fname;
-//        this.mname = mname;
-//        this.lname = lname;
-//        this.gender = gender;
-//        this.dob = dob;
-//        this.NIC = NIC;
-//        this.country = country;
-//        this.city = city;
-//        this.lane = lane;
-//        this.code = code;
-//        this.lat = lat;
-//        this.lng = lng;
-//        this.profilePic = profilePic;
-//        this.videoCallID = videoCallID;
-//    }
-//
-//    @Transient
-//    private String uname;
-//    @Transient
-//    private String password;
 
     @OneToMany(mappedBy = "patient",fetch = FetchType.LAZY,cascade = {CascadeType.MERGE,CascadeType.REMOVE})
     private
@@ -105,6 +91,11 @@ public class Patient  {
 
     @OneToMany(mappedBy = "patient",fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
     private List<DoctorRequestForFamDoc> doctorRequestForFamDocList;
+
+
+    @OneToOne(mappedBy = "patient",cascade = {CascadeType.ALL})
+    private PatientChatRoom patientChatRoom;
+
 
     public List<DoctorRequestForFamDoc> getDoctorRequestForFamDocList() {
         return doctorRequestForFamDocList;
