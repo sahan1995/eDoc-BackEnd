@@ -46,7 +46,7 @@ public class AppointmentServiceImpl implements AppointmentService {
         appointment.setPatient(new Patient(patientDTO.getPID(), patientDTO.getFname(), patientDTO.getMname(),
                 patientDTO.getLname(), patientDTO.getGender(), patientDTO.getDob(), patientDTO.getIdenty(),
                 patientDTO.getCountry(), patientDTO.getCity(), patientDTO.getLane(), patientDTO.getCode(), patientDTO.getLat(),
-                patientDTO.getLng(), patientDTO.getProfilePic()));
+                patientDTO.getLng(), patientDTO.getProfilePic(),patientDTO.getEmail()));
 
         DoctorDTO doctor = app.getDoctorDTO();
 

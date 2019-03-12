@@ -53,7 +53,7 @@ public class PatientServiceImpl implements PatientService {
 
             patientDTOS.add(new PatientDTO(patient.getPID(),patient.getFname(),patient.getMname(),patient.getLname(),
                     patient.getGender(),patient.getDob(),patient.getNIC(),patient.getCountry(),patient.getCity(),patient.getLane(),
-                    patient.getCode(),patient.getLat(),patient.getLng(),patient.getProfilePic()
+                    patient.getCode(),patient.getLat(),patient.getLng(),patient.getProfilePic(),patient.getEmail()
             ));
         });
             return patientDTOS;
@@ -69,7 +69,7 @@ public class PatientServiceImpl implements PatientService {
         return new PatientDTO(patient.getPID(), patient.getFname(), patient.getMname(),
                 patient.getLname(), patient.getGender(), patient.getDob(), patient.getNIC(),
                 patient.getCountry(), patient.getCity(), patient.getLane(), patient.getCode(), patient.getLat(),
-                patient.getLng(), patient.getProfilePic());
+                patient.getLng(), patient.getProfilePic(),patient.getEmail());
     }
 
     @Override
@@ -87,7 +87,7 @@ public class PatientServiceImpl implements PatientService {
         Patient patient = new Patient(patientDTO.getPID(), patientDTO.getFname(), patientDTO.getMname(),
                 patientDTO.getLname(), patientDTO.getGender(), patientDTO.getDob(), patientDTO.getIdenty(),
                 patientDTO.getCountry(), patientDTO.getCity(), patientDTO.getLane(), patientDTO.getCode(), patientDTO.getLat(),
-                patientDTO.getLng(), patientDTO.getProfilePic());
+                patientDTO.getLng(), patientDTO.getProfilePic(),patientDTO.getEmail());
 
 
         for (PatientTelDTO patientTel : patientTelDTOList) {
@@ -111,7 +111,7 @@ public class PatientServiceImpl implements PatientService {
         Patient patient = new Patient(patientDTO.getPID(), patientDTO.getFname(), patientDTO.getMname(),
                 patientDTO.getLname(), patientDTO.getGender(), patientDTO.getDob(), patientDTO.getIdenty(),
                 patientDTO.getCountry(), patientDTO.getCity(), patientDTO.getLane(), patientDTO.getCode(), patientDTO.getLat(),
-                patientDTO.getLng(), patientDTO.getProfilePic());
+                patientDTO.getLng(), patientDTO.getProfilePic(),patientDTO.getEmail());
         for (PatientTelDTO patientTel : patientTelDTOList) {
             patientTels.add(new PatientTel(patient,patientTel.getTel()));
         }

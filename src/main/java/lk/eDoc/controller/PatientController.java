@@ -38,7 +38,7 @@ public class PatientController {
     @PutMapping(value = "/{id}")
     public void savePatient(@PathVariable("id") String PID,@RequestBody PatientDTO patientDTO){
 //        PatientDTO patientDTO;
-        System.out.println("methent endwa");
+
         try {
 //            patientDTO = new ObjectMapper().readValue(patient, PatientDTO.class);
             patientDTO.setPID(PID);

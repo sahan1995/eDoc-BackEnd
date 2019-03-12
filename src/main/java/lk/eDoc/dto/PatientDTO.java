@@ -43,6 +43,25 @@ public class PatientDTO {
 
     private String identy;
 
+    private String email;
+
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
+    }
+
+    public String getEmail() {
+
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     @Override
     public String toString() {
         return "PatientDTO{" +
@@ -197,7 +216,7 @@ public class PatientDTO {
         this.password = password;
     }
 
-    public PatientDTO(String ID, String fname, String mname, String lname, String gender, Date dob, String identy, String country, String city, String lane, String code, double lat, double lng, String profilePic) {
+    public PatientDTO(String ID, String fname, String mname, String lname, String gender, Date dob, String identy, String country, String city, String lane, String code, double lat, double lng, String profilePic,String email) {
         this.ID = ID;
         this.fname = fname;
         this.mname = mname;
@@ -212,9 +231,7 @@ public class PatientDTO {
         this.lat = lat;
         this.lng = lng;
         this.profilePic = profilePic;
-        this.uname = uname;
-        this.password = password;
-
+        this.email=email;
     }
 
 

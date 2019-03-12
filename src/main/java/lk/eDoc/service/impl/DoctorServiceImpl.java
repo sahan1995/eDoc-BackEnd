@@ -191,7 +191,7 @@ public class DoctorServiceImpl implements DoctorService {
             appointmentDTO.setPatientDTO(new PatientDTO(patient.getPID(), patient.getFname(), patient.getMname(),
                     patient.getLname(), patient.getGender(), patient.getDob(), patient.getNIC(),
                     patient.getCountry(), patient.getCity(), patient.getLane(), patient.getCode(), patient.getLat(),
-                    patient.getLng(), patient.getProfilePic()));
+                    patient.getLng(), patient.getProfilePic(),patient.getEmail()));
 
             appointmentDTOS.add(appointmentDTO);
         });

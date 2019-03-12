@@ -46,6 +46,16 @@ public class Patient  {
     @Lob
     private String videoCallID;
 
+    private String email;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getVideoCallID() {
         return videoCallID;
     }
@@ -232,7 +242,7 @@ public class Patient  {
 //        this.password = password;
 //    }
 
-    public Patient(String PID, String fname, String mname, String lname, String gender, Date dob, String NIC, String country, String city, String lane, String code, double lat, double lng, String profilePic) {
+    public Patient(String PID, String fname, String mname, String lname, String gender, Date dob, String NIC, String country, String city, String lane, String code, double lat, double lng, String profilePic,String email) {
         this.PID = PID;
         this.fname = fname;
         this.mname = mname;
@@ -247,6 +257,7 @@ public class Patient  {
         this.lat = lat;
         this.lng = lng;
         this.profilePic = profilePic;
+        this.email=email;
     }
 
     public Patient() {
