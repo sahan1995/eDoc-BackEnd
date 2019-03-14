@@ -1,6 +1,9 @@
 package lk.eDoc.service;
 
+import lk.eDoc.dto.PatientFamDocDTO;
 import lk.eDoc.entity.PatientFamDoc_PK;
+
+import java.util.List;
 
 public interface PatientFamDocService {
 
@@ -10,4 +13,5 @@ public interface PatientFamDocService {
 
     boolean removeDoctor(String PID,String DID);
 
+    List<PatientFamDocDTO> getPatientFamDoc(String PID);
 }

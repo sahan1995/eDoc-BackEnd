@@ -1,9 +1,12 @@
 package lk.eDoc.controller;
 
+import lk.eDoc.dto.PatientFamDocDTO;
 import lk.eDoc.service.PatientFamDocService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @CrossOrigin
 @RestController
@@ -33,4 +36,8 @@ public class PatientFamDocController {
     }
 
 
+    @GetMapping(path = "/patientFamilyDoctors")
+    List<PatientFamDocDTO> getPatientFamilyDoctors(@RequestParam("PID")String PID ){
+        return patientFamDocService.getPatientFamDoc(PID);
+    }
 }
