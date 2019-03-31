@@ -91,13 +91,30 @@ public class AppointmentServiceImpl implements AppointmentService {
             Appointment appointment = byId.get();
             Patient patient = appointment.getPatient();
             Doctor doctor = appointment.getDoctor();
+            List<Appointment> appointments = patient.getAppointments();
+
 
             PatientDTO patientDTO = new PatientDTO();
             DoctorDTO doctorDTO = new DoctorDTO();
 
+            List<AppointmentDTO> appointmentDTOS = new ArrayList<>();
+            appointments.forEach(app->{
+                AppointmentDTO patientsAppointmets = new AppointmentDTO();
+                PrescriptionDTO prescriptionDTO = new PrescriptionDTO();
+
+//
+//                BeanUtils.copyProperties(app.getPrescription(),prescriptionDTO);
+                BeanUtils.copyProperties(app,patientsAppointmets);
+//                patientsAppointmets.setPrescriptionDTO(prescriptionDTO);
+                appointmentDTOS.add(patientsAppointmets);
+            });
+
+
+
             BeanUtils.copyProperties(patient, patientDTO);
             BeanUtils.copyProperties(doctor, doctorDTO);
             System.out.println(patient);
+            patientDTO.setAppointmentDTO(appointmentDTOS);
             AppointmentDTO appointmentDTO = new AppointmentDTO(appointment.getAppCode(), appointment.getTime(), appointment.getDate(), appointment.getAppType(), appointment.isCheck());
 //            appointmentDTO.setPatientDTO(new PatientDTO(patient.getPID(), patient.getFname(), patient.getMname(),
 //                    patient.getLname(), patient.getGender(), patient.getDob(), patient.getNIC(),

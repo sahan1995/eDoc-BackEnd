@@ -57,11 +57,27 @@ public class PatientFamDocServiceImpl implements PatientFamDocService {
 
 
             patientFamDoc.forEach(famdoc->{
-                PatientDTO patientDTO = new PatientDTO();
+//                PatientDTO patientDTO = new PatientDTO();
                 DoctorDTO doctorDTO = new DoctorDTO();
                 BeanUtils.copyProperties(famdoc.getDoctor(),doctorDTO);
-                BeanUtils.copyProperties(famdoc.getPatient(),patientDTO);
-                patientFamDocDTOS.add(new PatientFamDocDTO(patientDTO,doctorDTO));
+//                BeanUtils.copyProperties(famdoc.getPatient(),patientDTO);
+                patientFamDocDTOS.add(new PatientFamDocDTO(null,doctorDTO));
+            });
+        }
+        return patientFamDocDTOS;
+    }
+
+    @Override
+    public List<PatientFamDocDTO> getDoctorsPatients(String DID) {
+        List<PatientFamDoc> doctorsPatients = patientFamDocRepository.getDoctorsPatients(DID);
+        List<PatientFamDocDTO> patientFamDocDTOS = new ArrayList<>();
+        if(!doctorsPatients.isEmpty()){
+            doctorsPatients.forEach(patients->{
+                PatientDTO patientDTO = new PatientDTO();
+//                DoctorDTO doctorDTO = new DoctorDTO();
+                BeanUtils.copyProperties(patients.getPatient(),patientDTO);
+//                BeanUtils.copyProperties(patients.getDoctor(),doctorDTO);
+                patientFamDocDTOS.add(new PatientFamDocDTO(patientDTO,null));
             });
         }
         return patientFamDocDTOS;

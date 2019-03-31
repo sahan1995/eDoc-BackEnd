@@ -13,4 +13,8 @@ public interface PatientFamDocRepository extends JpaRepository<PatientFamDoc, Pa
 
     @Query(value = "SELECT * FROM PatientFamDoc WHERE PID=:PID",nativeQuery = true)
     List<PatientFamDoc> getPatientFamDoc(@Param("PID") String PID);
+
+
+    @Query(value = "SELECT * FROM PatientFamDoc WHERE DID=:DID",nativeQuery = true)
+    List<PatientFamDoc> getDoctorsPatients(@Param("DID") String DID);
 }

@@ -45,6 +45,8 @@ public class PatientDTO {
 
     private String email;
 
+    private List<AppointmentDTO> appointmentDTO;
+
     public String getID() {
         return ID;
     }
@@ -255,4 +257,12 @@ public class PatientDTO {
     }
 
 
+
+    public List<AppointmentDTO> getAppointmentDTO() {
+        return appointmentDTO;
+    }
+
+    public void setAppointmentDTO(List<AppointmentDTO> appointmentDTO) {
+        this.appointmentDTO = appointmentDTO;
+    }
 }

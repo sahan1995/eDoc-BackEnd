@@ -14,4 +14,6 @@ public interface PatientFamDocService {
     boolean removeDoctor(String PID,String DID);
 
     List<PatientFamDocDTO> getPatientFamDoc(String PID);
+
+    List<PatientFamDocDTO> getDoctorsPatients(String DID);
 }

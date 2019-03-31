@@ -40,4 +40,9 @@ public class PatientFamDocController {
     List<PatientFamDocDTO> getPatientFamilyDoctors(@RequestParam("PID")String PID ){
         return patientFamDocService.getPatientFamDoc(PID);
     }
+    @GetMapping(path = "/doctorsFamilyPatients")
+    List<PatientFamDocDTO> getDoctorsFamilyPatients(@RequestParam("DID")String DID ){
+        return  patientFamDocService.getDoctorsPatients(DID);
+    }
+
 }
