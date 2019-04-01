@@ -34,4 +34,6 @@ public interface AppointmentService {
     void cancleAppointment(String appCode);
 
     List<AppointmentDTO> todayAppointmets(String PID);
+
+    List<AppointmentDTO> todayDocAppointmets(String DID);
 }

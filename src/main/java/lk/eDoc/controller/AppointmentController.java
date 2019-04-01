@@ -175,4 +175,9 @@ public class AppointmentController {
         return  appointmentSe.todayAppointmets(PID);
     }
 
+    @GetMapping(path = "/todayDocAppointment")
+    public List<AppointmentDTO> todayDocAppointments(@RequestParam("DID") String DID){
+        return  appointmentSe.todayDocAppointmets(DID);
+    }
+
 }

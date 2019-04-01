@@ -241,5 +241,30 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     }
 
+    @Override
+    public List<AppointmentDTO> todayDocAppointmets(String DID) {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate localDate = LocalDate.now();
+        String date = dtf.format(localDate);
+        System.out.println(date);
+        System.out.println("doctor "+ DID);
+        List<Appointment> appointments = appointmentRepo.todayDocAppointments(DID, false, date);
+        if(appointments.isEmpty()){
+            return null;
+        }
+
+        List<AppointmentDTO> appointmentDTOS = new ArrayList<>();
+        appointments.forEach(app->{
+            AppointmentDTO appointmentDTO = new AppointmentDTO();
+            PatientDTO patientDTO = new PatientDTO();
+            BeanUtils.copyProperties(app,appointmentDTO);
+            BeanUtils.copyProperties(app.getPatient(),patientDTO);
+            appointmentDTO.setPatientDTO(patientDTO);
+            appointmentDTOS.add(appointmentDTO);
+        });
+
+        return appointmentDTOS;
+    }
+
 
 }
