@@ -63,5 +63,7 @@ public interface AppointmentRepository extends JpaRepository<Appointment,String>
                                  @Param("AppType") String appType);
 
 
+    @Query(value = "SELECT * FROM  Appointment app WHERE  app.PID=:PID AND app.isCancle=:isCancle AND app.date=:date",nativeQuery = true)
+    List<Appointment> todayAppointments(@Param("PID") String PID, @Param("isCancle") boolean isCancle, @Param("date") String date);
 
 }

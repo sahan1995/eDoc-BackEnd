@@ -31,4 +31,7 @@ public interface AppointmentService {
 
     String getPPAppointmentCountofCurrentDay(String DID);
 
+    void cancleAppointment(String appCode);
+
+    List<AppointmentDTO> todayAppointmets(String PID);
 }

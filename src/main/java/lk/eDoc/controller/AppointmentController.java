@@ -160,5 +160,19 @@ public class AppointmentController {
 
     }
 
+    /**
+     *
+     * @param appCode
+     */
+    @PostMapping(path = "/cancleApp")
+    public void cancleApp(@RequestParam("appCode") String appCode){
+
+        appointmentSe.cancleAppointment(appCode);
+    }
+
+    @GetMapping(path = "/todayAppointment")
+    public List<AppointmentDTO> todayAppointments(@RequestParam("PID") String PID){
+        return  appointmentSe.todayAppointmets(PID);
+    }
 
 }
